@@ -28,6 +28,10 @@ export class CompanyService {
   }
 
   update(id: number){
+    throw new Error('Method not implemented.');
+  }
 
+  setDefaultCompany(company: CompanyModel) {
+    return this.http.post<BooleanValue>(this.companyURL + '/selected', company).pipe(timeout(5000));
   }
 }

@@ -17,14 +17,36 @@ export class CompanyListComponent implements OnInit {
   companies: CompanyModel[];
   dataSource: MatTableDataSource<CompanyModel>;
 
-  @ViewChild(MatSort, {static: false}) sort: MatSort;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  displayedColumns: string[] = ['name', 'address', 'FY', 'BY', 'actions'];
+  displayedColumns: string[] = ['select', 'name', 'address', 'FY', 'BY', 'actions'];
 
   constructor(
       private dialog: MatDialog,
       private service: CompanyService,
       ) { }
+
+      selection = new SelectionModel<CompanyModel>(false, []);
+
+      selectRow(row: CompanyModel){
+        if(this.selection.isSelected(row)) {
+          this.selection.clear();
+        }
+      }
+
+      setDefaultCompany() {
+        const numSelected = this.selection.selected.length;
+        if(numSelected > 8) {
+          this.service.setDefaultCompany(this.selection.selected[0]).subscribe(
+            (flag) => {
+              console.log('Default Set');
+            }
+          );
+        }
+      }
+
+
+
 
   ngOnInit() {
     this.service.getAllCompanies().subscribe(
@@ -32,6 +54,11 @@ export class CompanyListComponent implements OnInit {
         this.companies = response;
         this.dataSource = new MatTableDataSource<CompanyModel>(this.companies);
         this.dataSource.sort = this.sort;
+        this.dataSource.data.forEach(row => {
+            if(row.isDefault === 1) {
+              this.selection.select(row);
+            }
+        });
       },
       (error) => {
         console.log(error.message);

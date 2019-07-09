@@ -21,7 +21,8 @@ const material = [
   Material.MatProgressSpinnerModule,
   Material.MatTableModule,
   Material.MatSortModule,
-  Material.MatPaginatorModule
+  Material.MatPaginatorModule,
+  Material.MatRadioModule
 ];
 
 @NgModule({

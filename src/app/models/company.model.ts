@@ -8,4 +8,5 @@ export class CompanyModel {
   passwordProtected: boolean;
   password: string;
   status: number;
+  isDefault: number;
 }
