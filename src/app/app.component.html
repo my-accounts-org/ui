@@ -1,0 +1,65 @@
+<mat-drawer-container class="container">
+  <mat-toolbar color="primary" class="navbar">
+    <div class="sidenav-content" (click)="drawer.toggle()">
+      <button mat-icon-button>
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+    <div>
+      <span>
+          <a class="menu-item" matTooltip="Home">
+              <mat-icon>home</mat-icon>
+            </a>
+      </span>
+      <span>
+          <a class="menu-item" matTooltip="About">
+              <mat-icon>info</mat-icon>
+            </a>
+      </span>
+      <span *ngIf="isLoggedIn()">
+          <a class="menu-item" matTooltip="Settings" [matMenuTriggerFor]="settingsMenu">
+              <mat-icon>settings</mat-icon>
+            </a>
+      </span>
+      <span *ngIf="isLoggedIn()">
+          <a class="menu-item" matTooltip="Profile" [matMenuTriggerFor]="profileMenu">
+              <mat-icon>account_circle</mat-icon>
+            </a>
+      </span>
+    </div>
+  </mat-toolbar>
+  <mat-drawer #drawer class="sidenav">
+    <mat-list>
+      <mat-list-item>
+        <mat-icon matListIcon>group</mat-icon>
+        <button mat-button>Groups</button>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon matListIcon>account_box</mat-icon>
+        Ledgers
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon matListIcon>group</mat-icon>
+        Vouchers
+      </mat-list-item>
+    </mat-list>
+  </mat-drawer>
+  <router-outlet></router-outlet>
+</mat-drawer-container>
+<!-- Menu For Profile -->
+<mat-menu #profileMenu>
+  <button mat-menu-item>My Account</button>
+  <button mat-menu-item (click)="logout()">Logout</button>
+</mat-menu>
+
+<!-- Menu for Group -->
+<mat-menu #groupsMenu>
+  <button mat-menu-item>Create Groups</button>
+  <button mat-menu-item>View Groups</button>
+</mat-menu>
+
+<!-- Menu for Settings -->
+<mat-menu #settingsMenu>
+    <button mat-menu-item (click)="navigateTo('company-list')">Company Master</button>
+</mat-menu>
+

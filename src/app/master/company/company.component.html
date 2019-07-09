@@ -1,0 +1,85 @@
+<mat-toolbar color="primary">
+  <span>Create Company</span>
+  <span class="example-fill-remaining-space"></span>
+  <button mat-mini-fab mat-dialog-close><mat-icon>close</mat-icon></button>
+</mat-toolbar>
+<form [formGroup]="companyForm" (submit)="companyForm.valid && onCreate()" noval>
+  <div class="form">
+    <div class="company-info">
+        <mat-form-field>
+            <mat-label>Company Name</mat-label>
+            <input
+              formControlName="name"
+              [(ngModel)]="company.name"
+              (blur)="updateMailingName()"
+              matInput placeholder="Enter your company name">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Mailing Name</mat-label>
+            <input
+              formControlName="mailingName"
+              [(ngModel)]="company.mailingName"
+              matInput placeholder="Enter your mailing name">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Address</mat-label>
+            <input
+              formControlName="mailingAddress"
+              [(ngModel)]="company.mailingAddress"
+              matInput placeholder="Enter your postal address">
+        </mat-form-field>
+
+        <mat-form-field *ngIf="company.passwordProtected">
+            <mat-label>Password</mat-label>
+            <input type="password"
+              formControlName="password"
+              [(ngModel)]="company.password"
+              matInput placeholder="Enter your password" required>
+        </mat-form-field>
+            <mat-checkbox
+            formControlName="isPasswordProtected"
+            [(ngModel)]="company.passwordProtected"
+            >
+            Password Protected
+          </mat-checkbox>
+    </div>
+    <div class="other-info">
+        <mat-form-field>
+            <mat-label>State</mat-label>
+            <input  matInput placeholder="Enter your postal address">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Financial Year</mat-label>
+            <input
+              formControlName="financialYear"
+              [(ngModel)]="company.financialYear"
+              matInput [matDatepicker]="pickerYear" placeholder="Choose a date">
+            <mat-datepicker-toggle matSuffix [for]="pickerYear"></mat-datepicker-toggle>
+            <mat-datepicker #pickerYear></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field>
+              <mat-label>Books Keeping From</mat-label>
+              <input
+                formControlName="booksBeginingFrom"
+                [(ngModel)]="company.booksBeginingFrom"
+                matInput [matDatepicker]="picker" placeholder="Choose a date">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+
+          <mat-form-field *ngIf="company.passwordProtected">
+              <mat-label>Confirm Password</mat-label>
+              <input type="password" required matInput placeholder="Re Enter your your password">
+          </mat-form-field>
+
+          <div class="actions">
+              <mat-card-actions>
+                  <button mat-raised-button [disabled]="!companyForm.valid" >Create</button>
+              </mat-card-actions>
+          </div>
+
+    </div>
+  </div>
+
+</form>
