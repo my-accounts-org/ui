@@ -26,17 +26,20 @@ export class CompanyListComponent implements OnInit {
       private service: CompanyService,
       ) { }
 
-      selection = new SelectionModel<CompanyModel>(false, []);
+      selection: SelectionModel<CompanyModel>;
 
       selectRow(row: CompanyModel){
-        if(this.selection.isSelected(row)) {
+        if(!this.selection.isSelected(row)){
+          this.selection.select(row);
+        } else {
           this.selection.clear();
         }
+
       }
 
       setDefaultCompany() {
         const numSelected = this.selection.selected.length;
-        if(numSelected > 8) {
+        if(numSelected > 0) {
           this.service.setDefaultCompany(this.selection.selected[0]).subscribe(
             (flag) => {
               console.log('Default Set');
@@ -44,8 +47,6 @@ export class CompanyListComponent implements OnInit {
           );
         }
       }
-
-
 
 
   ngOnInit() {
@@ -56,7 +57,7 @@ export class CompanyListComponent implements OnInit {
         this.dataSource.sort = this.sort;
         this.dataSource.data.forEach(row => {
             if(row.isDefault === 1) {
-              this.selection.select(row);
+              this.selection = new SelectionModel<CompanyModel>(false, [row]);
             }
         });
       },
@@ -64,6 +65,10 @@ export class CompanyListComponent implements OnInit {
         console.log(error.message);
       }
     );
+
+    if (!this.selection) {
+      this.selection = new SelectionModel<CompanyModel>(false);
+    }
   }
 
   add() {
