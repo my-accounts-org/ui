@@ -12,6 +12,8 @@ import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './auth.guard';
 import { CompanyComponent } from './master/company/company.component';
 import { CompanyListComponent } from './company-list/company-list.component';
+import { GroupComponent } from './master/group/group.component';
+import { GroupListComponent } from './group-list/group-list.component';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { CompanyListComponent } from './company-list/company-list.component';
     DashboardComponent,
     HomeComponent,
     CompanyComponent,
-    CompanyListComponent
+    CompanyListComponent,
+    GroupComponent,
+    GroupListComponent
   ],
   imports: [
     BrowserModule,
