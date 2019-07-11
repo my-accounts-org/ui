@@ -14,6 +14,7 @@ import { CompanyComponent } from './master/company/company.component';
 import { CompanyListComponent } from './company-list/company-list.component';
 import { GroupComponent } from './master/group/group.component';
 import { GroupListComponent } from './group-list/group-list.component';
+import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { GroupListComponent } from './group-list/group-list.component';
     BrowserAnimationsModule,
     MaterialModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    Ng4LoadingSpinnerModule.forRoot()
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent],

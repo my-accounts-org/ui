@@ -3,8 +3,8 @@ import { CompanyModel } from 'src/app/models/company.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CompanyService } from 'src/app/shared/company.service';
 import { Router } from '@angular/router';
-import { AppComponent } from 'src/app/app.component';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import {Ng4LoadingSpinnerService} from "ng4-loading-spinner";
 
 
 @Component({
@@ -23,6 +23,7 @@ export class CompanyComponent implements OnInit {
       private service: CompanyService,
       private router: Router,
       public dialogRef: MatDialogRef<CompanyComponent>,
+      private spinnerService: Ng4LoadingSpinnerService,
       @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
@@ -52,6 +53,7 @@ export class CompanyComponent implements OnInit {
   }
 
   onCreate() {
+    this.spinnerService.show();
     this.service.create(this.company).subscribe(
       (company: CompanyModel) => {
          if (company.id > 0) {
@@ -63,7 +65,8 @@ export class CompanyComponent implements OnInit {
       },
       (error) => {
         this.error = error.message;
-      });
+      },
+      ()=>this.spinnerService.hide());
   }
 
 }

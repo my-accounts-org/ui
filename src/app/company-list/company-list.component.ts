@@ -6,6 +6,7 @@ import { CompanyService } from '../shared/company.service';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
+import {Ng4LoadingSpinnerService} from "ng4-loading-spinner";
 
 @Component({
   selector: 'app-company-list',
@@ -24,6 +25,7 @@ export class CompanyListComponent implements OnInit {
   constructor(
       private dialog: MatDialog,
       private service: CompanyService,
+      private spinnerService: Ng4LoadingSpinnerService
       ) { }
 
       selection: SelectionModel<CompanyModel>;
@@ -86,7 +88,7 @@ export class CompanyListComponent implements OnInit {
   }n
 
   delete(element: CompanyModel) {
-
+    this.spinnerService.show();
      this.service.delete(element).subscribe(
        (result) => {
         this.companies = this.companies.filter((value, index, arr) => {
@@ -94,7 +96,11 @@ export class CompanyListComponent implements OnInit {
         });
         this.dataSource.data = this.companies;
 
-       }
+       },
+       (error) => {
+         console.log(error.message);
+       },
+       ()=>this.spinnerService.hide()
      );
   }
 

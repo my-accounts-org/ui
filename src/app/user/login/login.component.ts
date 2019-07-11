@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { AuthService } from '.././../shared/auth.service';
 import { AppComponent } from 'src/app/app.component';
 import { Router } from '@angular/router';
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 
 
 @Component({
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private service: AuthService,
               private app: AppComponent,
-              private router: Router) { }
+              private router: Router,
+              private spinnerService: Ng4LoadingSpinnerService) { }
 
   ngOnInit() {
     this.loginForm = this.fb.group({
@@ -33,6 +35,7 @@ export class LoginComponent implements OnInit {
 
   onLogin() {
     this.logging = true;
+    this.spinnerService.show();
     this.service.login(this.user)
     .subscribe(
       (data: any) => {
@@ -49,8 +52,8 @@ export class LoginComponent implements OnInit {
           this.error = error.statusText + ': Server is down! Please try later';
         }
         this.logging = false;
-      }
+      },
+      ()=>this.spinnerService.hide()
     );
   }
-
 }
