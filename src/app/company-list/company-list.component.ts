@@ -1,12 +1,12 @@
-import { Component, OnInit, ViewChild  } from '@angular/core';
-import { MatDialog, MatDialogConfig, MatSort} from '@angular/material';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogConfig, MatSort } from '@angular/material';
 import { CompanyComponent } from '../master/company/company.component';
 import { CompanyModel } from '../models/company.model';
 import { CompanyService } from '../shared/company.service';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
-import {SelectionModel} from '@angular/cdk/collections';
-import {Ng4LoadingSpinnerService} from "ng4-loading-spinner";
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { SelectionModel } from '@angular/cdk/collections';
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 
 @Component({
   selector: 'app-company-list',
@@ -18,37 +18,37 @@ export class CompanyListComponent implements OnInit {
   companies: CompanyModel[];
   dataSource: MatTableDataSource<CompanyModel>;
 
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   displayedColumns: string[] = ['select', 'name', 'address', 'FY', 'BY', 'actions'];
 
   constructor(
-      private dialog: MatDialog,
-      private service: CompanyService,
-      private spinnerService: Ng4LoadingSpinnerService
-      ) { }
+    private dialog: MatDialog,
+    private service: CompanyService,
+    private spinnerService: Ng4LoadingSpinnerService
+  ) { }
 
-      selection: SelectionModel<CompanyModel>;
+  selection: SelectionModel<CompanyModel>;
 
-      selectRow(row: CompanyModel){
-        if(!this.selection.isSelected(row)){
-          this.selection.select(row);
-        } else {
-          this.selection.clear();
+  selectRow(row: CompanyModel) {
+    if (!this.selection.isSelected(row)) {
+      this.selection.select(row);
+    } else {
+      this.selection.clear();
+    }
+
+  }
+
+  setDefaultCompany() {
+    const numSelected = this.selection.selected.length;
+    if (numSelected > 0) {
+      this.service.setDefaultCompany(this.selection.selected[0]).subscribe(
+        (flag) => {
+          console.log('Default Set');
         }
-
-      }
-
-      setDefaultCompany() {
-        const numSelected = this.selection.selected.length;
-        if(numSelected > 0) {
-          this.service.setDefaultCompany(this.selection.selected[0]).subscribe(
-            (flag) => {
-              console.log('Default Set');
-            }
-          );
-        }
-      }
+      );
+    }
+  }
 
 
   ngOnInit() {
@@ -58,9 +58,9 @@ export class CompanyListComponent implements OnInit {
         this.dataSource = new MatTableDataSource<CompanyModel>(this.companies);
         this.dataSource.sort = this.sort;
         this.dataSource.data.forEach(row => {
-            if(row.isDefault === 1) {
-              this.selection = new SelectionModel<CompanyModel>(false, [row]);
-            }
+          if (row.isDefault === 1) {
+            this.selection = new SelectionModel<CompanyModel>(false, [row]);
+          }
         });
       },
       (error) => {
@@ -85,23 +85,22 @@ export class CompanyListComponent implements OnInit {
         this.dataSource.data = this.companies;
       }
     });
-  }n
+  }
 
   delete(element: CompanyModel) {
     this.spinnerService.show();
-     this.service.delete(element).subscribe(
-       (result) => {
+    this.service.delete(element).subscribe(
+      (result) => {
         this.companies = this.companies.filter((value, index, arr) => {
           return value.id !== element.id;
         });
         this.dataSource.data = this.companies;
-
-       },
-       (error) => {
-         console.log(error.message);
-       },
-       ()=>this.spinnerService.hide()
-     );
+        this.spinnerService.hide();
+      },
+      (error) => {
+        console.log(error.message);
+      }
+    );
   }
 
 }

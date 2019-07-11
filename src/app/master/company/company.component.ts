@@ -62,11 +62,11 @@ export class CompanyComponent implements OnInit {
          } else {
            this.error = 'Error while creating company!';
          }
+         this.spinnerService.hide();
       },
       (error) => {
         this.error = error.message;
-      },
-      ()=>this.spinnerService.hide());
+      });
   }
 
 }
