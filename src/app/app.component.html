@@ -28,11 +28,11 @@
       </span>
     </div>
   </mat-toolbar>
-  <mat-drawer #drawer class="sidenav">
+  <mat-drawer #drawer class="sidenav"  #sidenav >
     <mat-list>
       <mat-list-item>
         <mat-icon matListIcon>group</mat-icon>
-        <button mat-button>Groups</button>
+        <button mat-button (click)="navigateTo('group-list'); sidenav.toggle()">Groups</button>
       </mat-list-item>
       <mat-list-item>
         <mat-icon matListIcon>account_box</mat-icon>

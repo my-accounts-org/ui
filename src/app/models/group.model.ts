@@ -1,4 +1,4 @@
-export class Group {
+export class GroupModel {
   id: number;
   name: string;
   under: number;

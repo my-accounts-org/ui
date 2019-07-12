@@ -9,5 +9,5 @@ export class AccountsConstants {
   public COMPANY_DELETED = 'Company deleted';
   public SUCCESS_MESSAGE = 'SUCCESS';
   public FAILUR_MESSAGE = 'FAILED';
-  public SET_AS_DEFAULT = 'Set as Default';
+  public SET_AS_DEFAULT = 'set as default';
 }
