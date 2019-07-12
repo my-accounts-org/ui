@@ -1,12 +1,14 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogConfig, MatSort } from '@angular/material';
-import { CompanyComponent } from '../master/company/company.component';
-import { CompanyModel } from '../models/company.model';
-import { CompanyService } from '../shared/company.service';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { SelectionModel } from '@angular/cdk/collections';
-import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatDialog, MatDialogConfig, MatSort} from '@angular/material';
+import {CompanyComponent} from '../master/company/company.component';
+import {CompanyModel} from '../models/company.model';
+import {CompanyService} from '../shared/company.service';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
+import {SelectionModel} from '@angular/cdk/collections';
+import {Ng4LoadingSpinnerService} from 'ng4-loading-spinner';
+import {AccountsConstants} from '../shared/accounts.constants';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-company-list',
@@ -18,21 +20,26 @@ export class CompanyListComponent implements OnInit {
   companies: CompanyModel[];
   dataSource: MatTableDataSource<CompanyModel>;
 
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   displayedColumns: string[] = ['select', 'name', 'address', 'FY', 'BY', 'actions'];
 
   constructor(
     private dialog: MatDialog,
     private service: CompanyService,
-    private spinnerService: Ng4LoadingSpinnerService
-  ) { }
+    private spinnerService: Ng4LoadingSpinnerService,
+    private accountsConstants: AccountsConstants,
+    private snackBar: MatSnackBar
+  ) {
+  }
 
   selection: SelectionModel<CompanyModel>;
 
   selectRow(row: CompanyModel) {
     if (!this.selection.isSelected(row)) {
       this.selection.select(row);
+      this.setDefaultCompany();
     } else {
       this.selection.clear();
     }
@@ -45,6 +52,9 @@ export class CompanyListComponent implements OnInit {
       this.service.setDefaultCompany(this.selection.selected[0]).subscribe(
         (flag) => {
           console.log('Default Set');
+          this.snackBar.open(this.selection.selected[0].name + ' is ' + this.accountsConstants.SET_AS_DEFAULT, '', {
+            duration: 2000,
+          });
         }
       );
     }
@@ -57,6 +67,7 @@ export class CompanyListComponent implements OnInit {
         this.companies = response;
         this.dataSource = new MatTableDataSource<CompanyModel>(this.companies);
         this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
         this.dataSource.data.forEach(row => {
           if (row.isDefault === 1) {
             this.selection = new SelectionModel<CompanyModel>(false, [row]);
@@ -95,11 +106,17 @@ export class CompanyListComponent implements OnInit {
           return value.id !== element.id;
         });
         this.dataSource.data = this.companies;
-        this.spinnerService.hide();
+        this.snackBar.open(this.accountsConstants.COMPANY_DELETED, this.accountsConstants.SUCCESS_MESSAGE, {
+          duration: 2000,
+        });
       },
       (error) => {
         console.log(error.message);
-      }
+        this.snackBar.open(this.accountsConstants.COMPANY_DELETED, this.accountsConstants.FAILUR_MESSAGE, {
+          duration: 2000,
+        });
+      },
+      () => this.spinnerService.hide()
     );
   }
 

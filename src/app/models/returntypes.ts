@@ -1,3 +1,3 @@
-export interface BooleanValue{
+export interface BooleanValue {
   value: boolean;
 }

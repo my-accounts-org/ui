@@ -5,4 +5,4 @@ export class Group {
   nature: number;
   grossAffected: boolean;
   isDefault: boolean;
-};
+}

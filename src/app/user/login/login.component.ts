@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { LoginModel } from '../../models/login.model';
-import { FormGroup, FormBuilder, Validators} from '@angular/forms';
-import { AuthService } from '.././../shared/auth.service';
-import { AppComponent } from 'src/app/app.component';
-import { Router } from '@angular/router';
-import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import {Component, OnInit} from '@angular/core';
+import {LoginModel} from '../../models/login.model';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {AuthService} from '.././../shared/auth.service';
+import {AppComponent} from 'src/app/app.component';
+import {Router} from '@angular/router';
+import {Ng4LoadingSpinnerService} from 'ng4-loading-spinner';
 
 
 @Component({
@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
 
   user: LoginModel = new LoginModel();
   loginForm: FormGroup;
-  hide =  true;
+  hide = true;
   error: string;
   logging = false;
 
@@ -24,12 +24,13 @@ export class LoginComponent implements OnInit {
               private service: AuthService,
               private app: AppComponent,
               private router: Router,
-              private spinnerService: Ng4LoadingSpinnerService) { }
+              private spinnerService: Ng4LoadingSpinnerService) {
+  }
 
   ngOnInit() {
     this.loginForm = this.fb.group({
       email: [this.user.email, [Validators.required, Validators.email]],
-      password : [this.user.password,[Validators.required, Validators.minLength(3), Validators.maxLength(30)]]
+      password: [this.user.password, [Validators.required, Validators.minLength(3), Validators.maxLength(30)]]
     });
   }
 
@@ -37,23 +38,23 @@ export class LoginComponent implements OnInit {
     this.logging = true;
     this.spinnerService.show();
     this.service.login(this.user)
-    .subscribe(
-      (data: any) => {
-        if (data) {
+      .subscribe(
+        (data: any) => {
+          if (data) {
             localStorage.setItem('user', JSON.stringify(data));
             this.router.navigate(['dashboard']);
-        } else {
-          this.error = 'Invalid login/password. Please try again!';
-        }
-        this.logging = false;
-      },
-      (error) => {
-        if (error.status === 504) {
-          this.error = error.statusText + ': Server is down! Please try later';
-        }
-        this.logging = false;
-      },
-      ()=>this.spinnerService.hide()
-    );
+          } else {
+            this.error = 'Invalid login/password. Please try again!';
+          }
+          this.logging = false;
+        },
+        (error) => {
+          if (error.status === 504) {
+            this.error = error.statusText + ': Server is down! Please try later';
+          }
+          this.logging = false;
+        },
+        () => this.spinnerService.hide()
+      );
   }
 }
