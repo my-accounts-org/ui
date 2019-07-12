@@ -1,10 +1,12 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { CompanyModel } from 'src/app/models/company.model';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { CompanyService } from 'src/app/shared/company.service';
-import { Router } from '@angular/router';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import {Ng4LoadingSpinnerService} from "ng4-loading-spinner";
+import {Component, OnInit, Inject} from '@angular/core';
+import {CompanyModel} from 'src/app/models/company.model';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {CompanyService} from 'src/app/shared/company.service';
+import {Router} from '@angular/router';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {Ng4LoadingSpinnerService} from 'ng4-loading-spinner';
+import {AccountsConstants} from '../../shared/accounts.constants';
 
 
 @Component({
@@ -16,15 +18,18 @@ export class CompanyComponent implements OnInit {
 
   company: CompanyModel = new CompanyModel();
   companyForm: FormGroup;
-  error: string;
+  infoMessage: string;
 
   constructor(
-      private fb: FormBuilder,
-      private service: CompanyService,
-      private router: Router,
-      public dialogRef: MatDialogRef<CompanyComponent>,
-      private spinnerService: Ng4LoadingSpinnerService,
-      @Inject(MAT_DIALOG_DATA) public data: any) { }
+    private fb: FormBuilder,
+    private service: CompanyService,
+    private router: Router,
+    public dialogRef: MatDialogRef<CompanyComponent>,
+    private spinnerService: Ng4LoadingSpinnerService,
+    private snackBar: MatSnackBar,
+    private accountsConstants: AccountsConstants,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+  }
 
   ngOnInit() {
     this.company.name = 'Vivek & Company';
@@ -47,7 +52,7 @@ export class CompanyComponent implements OnInit {
 
   updateMailingName() {
     if (this.company.mailingName === undefined
-              || this.company.mailingName === '') {
+      || this.company.mailingName === '') {
       this.company.mailingName = this.company.name;
     }
   }
@@ -56,17 +61,27 @@ export class CompanyComponent implements OnInit {
     this.spinnerService.show();
     this.service.create(this.company).subscribe(
       (company: CompanyModel) => {
-         if (company.id > 0) {
-           console.log('Company created successfully');
-           this.dialogRef.close(company);
-         } else {
-           this.error = 'Error while creating company!';
-         }
-         this.spinnerService.hide();
+        if (company.id > 0) {
+          this.dialogRef.close(company);
+          this.snackBar.open(this.accountsConstants.COMPANY_CREATE, this.accountsConstants.SUCCESS_MESSAGE, {
+            duration: 2000,
+          });
+          this.infoMessage = 'Company created succesfully';
+        } else {
+          this.snackBar.open(this.accountsConstants.COMPANY_CREATE, this.accountsConstants.FAILUR_MESSAGE, {
+            duration: 2000,
+          });
+          this.infoMessage = 'Error while creating company!';
+        }
       },
       (error) => {
-        this.error = error.message;
-      });
+        this.infoMessage = error.message;
+        this.snackBar.open(this.accountsConstants.COMPANY_CREATE, this.accountsConstants.FAILUR_MESSAGE, {
+          duration: 2000,
+        });
+      },
+      () => this.spinnerService.hide()
+    );
   }
 
 }

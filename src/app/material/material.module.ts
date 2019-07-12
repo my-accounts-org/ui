@@ -22,7 +22,8 @@ const material = [
   Material.MatTableModule,
   Material.MatSortModule,
   Material.MatPaginatorModule,
-  Material.MatRadioModule
+  Material.MatRadioModule,
+  Material.MatSnackBarModule
 ];
 
 @NgModule({

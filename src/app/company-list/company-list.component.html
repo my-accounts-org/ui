@@ -10,12 +10,6 @@
     <!-- Checkbox Column -->
     <ng-container matColumnDef="select">
       <mat-header-cell *matHeaderCellDef class="action">
-        <button mat-raised-button (click)="setDefaultCompany()">Set Default</button>
-        <!-- <mat-checkbox (change)="$event ? masterToggle() : null"
-                          [checked]="selection.hasValue() && isAllSelected()"
-                          [indeterminate]="selection.hasValue() && !isAllSelected()"
-                          [aria-label]="checkboxLabel()">
-            </mat-checkbox> -->
       </mat-header-cell>
       <mat-cell *matCellDef="let row" class="action">
         <mat-checkbox (change)="$event ? selectRow(row) : null"
@@ -83,5 +77,7 @@
     <mat-footer-row *matFooterRowDef="['nodata']"
       [ngClass]="{'hide': dataSource != null && dataSource.data.length > 0}"></mat-footer-row>
   </mat-table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 
 </div>
