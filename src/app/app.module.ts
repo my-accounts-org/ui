@@ -39,6 +39,6 @@ import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent],
-  entryComponents: [CompanyComponent]
+  entryComponents: [CompanyComponent, GroupComponent]
 })
 export class AppModule { }

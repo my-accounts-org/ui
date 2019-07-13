@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { GroupModel } from 'src/app/models/group.model';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { GroupService } from 'src/app/shared/group.service';
+import { CompanyModel } from 'src/app/models/company.model';
 
 @Component({
   selector: 'app-group',
@@ -7,9 +11,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GroupComponent implements OnInit {
 
-  constructor() { }
+  group: GroupModel = new GroupModel();
+  groups: GroupModel[];
+  company: CompanyModel;
+  groupForm: FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+    private service: GroupService
+  ) { }
 
   ngOnInit() {
+    this.company = JSON.parse(localStorage.getItem('company'));
+    this.service.getAllGroups(this.company).subscribe(
+      response => {
+        this.groups = response;
+        this.groups.sort((a, b) => a.name > b.name ? 1 : -1 );
+      }
+    );
+    this.groupForm = this.fb.group({
+      name: [this.group.name, {validators: [Validators.required]}],
+      under: [this.group.under],
+      nature: [this.group.nature],
+      grossAffected: [this.group.grossAffected]
+    });
   }
 
+  onCreate(){
+
+  }
 }

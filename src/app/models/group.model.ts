@@ -5,4 +5,5 @@ export class GroupModel {
   nature: number;
   grossAffected: boolean;
   isDefault: boolean;
+  nameOfGroupUnder: string;
 }

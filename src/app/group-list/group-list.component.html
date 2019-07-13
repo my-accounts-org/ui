@@ -1,5 +1,5 @@
 <div class="container">
-  <span class="bottom-right"><button color="primary" mat-mini-fab >+</button></span>
+  <span class="bottom-right"><button color="primary" mat-mini-fab (click)='add()'>+</button></span>
   <mat-toolbar color="primary">
     <mat-card-header>List of Companies</mat-card-header>
   </mat-toolbar>
@@ -28,9 +28,9 @@
     <!-- Name Column -->
     <ng-container matColumnDef="under">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Group Under </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.under}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{(element.nameOfGroupUnder) || "Primary"}} </mat-cell>
     </ng-container>
-     
+
     <!-- Action Column -->
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef> </mat-header-cell>
@@ -39,7 +39,7 @@
           <mat-icon matTooltip="Edit Company">launch</mat-icon>
         </button>
         <button mat-icon-button>
-          <mat-icon color="warn" (click)="delete(element)" matTooltip="Delete Company">delete_outline</mat-icon>
+          <mat-icon color="warn" matTooltip="Delete Group">delete_outline</mat-icon>
         </button>
       </mat-cell>
     </ng-container>
@@ -66,6 +66,6 @@
       [ngClass]="{'hide': dataSource != null && dataSource.data.length > 0}"></mat-footer-row>
   </mat-table>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  <mat-paginator [pageSizeOptions]="[10, 20, 50, 100, 200, 500]" showFirstLastButtons></mat-paginator>
 
 </div>

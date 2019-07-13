@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { GroupModel } from '../models/group.model';
-import { MatTableDataSource, MatPaginator, MatSort, MatDialog } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort, MatDialog, MatDialogConfig } from '@angular/material';
 import { GroupService } from '../shared/group.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { CompanyModel } from '../models/company.model';
+import { GroupComponent } from '../master/group/group.component';
 
 @Component({
   selector: 'app-group-list',
@@ -47,6 +48,20 @@ export class GroupListComponent implements OnInit {
     } else {
       this.selection.clear();
     }
+  }
+
+  add() {
+    const config: MatDialogConfig = new MatDialogConfig();
+    config.autoFocus = true;
+    config.width = '700px';
+    const dialogRef = this.dialog.open(GroupComponent, config);
+
+    dialogRef.afterClosed().subscribe((group: GroupModel) => {
+      if (group) {
+        this.groups.push(group);
+        this.dataSource.data = this.groups;
+      }
+    });
   }
 
 }
