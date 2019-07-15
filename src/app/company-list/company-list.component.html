@@ -10,6 +10,7 @@
     <!-- Checkbox Column -->
     <ng-container matColumnDef="select">
       <mat-header-cell *matHeaderCellDef class="action">
+        Default Company
       </mat-header-cell>
       <mat-cell *matCellDef="let row" class="action">
         <mat-checkbox (change)="$event ? selectRow(row) : null"

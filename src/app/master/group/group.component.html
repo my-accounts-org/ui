@@ -21,11 +21,13 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
+
+          <div class="actions">
+              <mat-card-actions>
+                  <button mat-raised-button [disabled]="!groupForm.valid" >Create</button>
+              </mat-card-actions>
+          </div>
     </div>
-    <div class="actions">
-        <mat-card-actions>
-            <button mat-raised-button [disabled]="!groupForm.valid" >Create</button>
-        </mat-card-actions>
-    </div>
+
   </div>
 </form>

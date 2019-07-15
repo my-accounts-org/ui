@@ -5,6 +5,7 @@
         <mat-icon>menu</mat-icon>
       </button>
     </div>
+    <span>EaZy Accounting</span>
     <div>
       <span>
           <a class="menu-item" matTooltip="Home" (click)="navigateTo('dashboard')">
@@ -28,7 +29,7 @@
       </span>
     </div>
   </mat-toolbar>
-  <mat-drawer #drawer class="sidenav"  #sidenav >
+  <mat-drawer #drawer class="sidenav" #sidenav mode="over">
     <mat-list>
       <mat-list-item>
         <mat-icon matListIcon>group</mat-icon>

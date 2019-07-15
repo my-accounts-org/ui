@@ -38,6 +38,8 @@ export class GroupComponent implements OnInit {
   }
 
   onCreate(){
-
+    this.service.create(this.group).subscribe(
+      response => {}
+    );
   }
 }
