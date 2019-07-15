@@ -6,6 +6,7 @@ import {AuthGuard} from './auth.guard';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {CompanyListComponent} from './company-list/company-list.component';
 import { GroupListComponent } from './group-list/group-list.component';
+import {LedgerListComponent} from "./ledger-list/ledger-list.component";
 
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
   {path: 'company-list', component: CompanyListComponent, canActivate: [AuthGuard]},
   {path: 'group-list', component: GroupListComponent, canActivate: [AuthGuard]},
+  {path: 'ledger-list', component: LedgerListComponent, canActivate: [AuthGuard]},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
   {path: '', redirectTo: '/home', pathMatch: 'full'}
 ];

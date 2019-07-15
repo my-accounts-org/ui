@@ -15,6 +15,7 @@ import { CompanyListComponent } from './company-list/company-list.component';
 import { GroupComponent } from './master/group/group.component';
 import { GroupListComponent } from './group-list/group-list.component';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
+import { LedgerListComponent } from './ledger-list/ledger-list.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
     CompanyComponent,
     CompanyListComponent,
     GroupComponent,
-    GroupListComponent
+    GroupListComponent,
+    LedgerListComponent
   ],
   imports: [
     BrowserModule,
