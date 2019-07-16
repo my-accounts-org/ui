@@ -37,4 +37,8 @@ export class AppComponent {
     config.width = '900px';
     this.dialog.open(CompanyComponent, config);
   }
+
+  showUserMessage(message, type) {
+
+  }
 }

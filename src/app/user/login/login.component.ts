@@ -5,6 +5,8 @@ import {AuthService} from '.././../shared/auth.service';
 import {AppComponent} from 'src/app/app.component';
 import {Router} from '@angular/router';
 import {Ng4LoadingSpinnerService} from 'ng4-loading-spinner';
+import {MessageService} from "../../shared/message.service";
+
 
 
 @Component({
@@ -18,12 +20,12 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   hide = true;
   error: string;
-  logging = false;
 
   constructor(private fb: FormBuilder,
               private service: AuthService,
               private app: AppComponent,
               private router: Router,
+              private messageService: MessageService,
               private spinnerService: Ng4LoadingSpinnerService) {
   }
 
@@ -35,26 +37,25 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
-    this.logging = true;
     this.spinnerService.show();
     this.service.login(this.user)
       .subscribe(
         (data: any) => {
           if (data) {
             localStorage.setItem('user', JSON.stringify(data));
+            localStorage.setItem('company', JSON.stringify(data.company));
             this.router.navigate(['dashboard']);
           } else {
-            this.error = 'Invalid login/password. Please try again!';
+            this.messageService.showMessage('Invalid login/password. Please try again later!', '');
           }
-          this.logging = false;
         },
         (error) => {
-          if (error.status === 504) {
-            this.error = error.statusText + ': Server is down! Please try later';
+          if (error.status === 500) {
+            this.messageService.showMessage('Server is down! Please try later', '');
           }
-          this.logging = false;
         },
         () => this.spinnerService.hide()
       );
   }
+
 }
