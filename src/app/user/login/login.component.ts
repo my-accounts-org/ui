@@ -45,16 +45,20 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('user', JSON.stringify(data));
             localStorage.setItem('company', JSON.stringify(data.company));
             this.router.navigate(['dashboard']);
-          } else {
-            this.messageService.showMessage('Invalid login/password. Please try again later!', '');
           }
         },
         (error) => {
-          if (error.status === 500) {
-            this.messageService.showMessage('Server is down! Please try later', '');
+          this.spinnerService.hide();
+          if(error.status){
+            switch (error.status) {
+              case 401: this.messageService.showMessage(error.error.message, ''); break;
+              case 504: this.messageService.showMessage(error.statusText + ' Server is down!', '');
+            }
+          } else {
+            this.messageService.showMessage(error, '');
           }
         },
-        () => this.spinnerService.hide()
+        () => {this.spinnerService.hide(); }
       );
   }
 
