@@ -1,0 +1,51 @@
+<div class="container">
+  <mat-toolbar color="primary">
+    <mat-card-header>List of Ledgers</mat-card-header>
+  </mat-toolbar>
+  <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Ledger Name </mat-header-cell>
+
+      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+    </ng-container>
+
+    <!-- Under Column -->
+    <ng-container matColumnDef="under">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Under </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.ledgerUnderGroupName}} </mat-cell>
+    </ng-container>
+
+    <!-- Balance Column -->
+    <ng-container matColumnDef="o_bal">
+      <mat-header-cell *matHeaderCellDef> Opening Balance </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.openingBalance}} </mat-cell>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="loading">
+      <mat-footer-cell *matFooterCellDef colspan="5">
+        Loading data...
+      </mat-footer-cell>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="nodata">
+      <mat-footer-cell *matFooterCellDef colspan="5">
+        No Data
+      </mat-footer-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+    <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide': dataSource != null}"></mat-footer-row>
+    <mat-footer-row *matFooterRowDef="['nodata']"
+                    [ngClass]="{'hide': dataSource != null && dataSource.data.length > 0}"></mat-footer-row>
+  </mat-table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+</div>
