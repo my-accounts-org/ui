@@ -15,6 +15,7 @@ export class GroupComponent implements OnInit {
   groups: GroupModel[];
   company: CompanyModel;
   groupForm: FormGroup;
+  nature: string[] = ['Asset', 'Expenses', 'Income', 'Liability'];
 
   constructor(
     private fb: FormBuilder,

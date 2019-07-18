@@ -11,6 +11,8 @@ import {CompanyComponent} from './master/company/company.component';
 })
 export class AppComponent {
 
+  companyName = 'Accounting Solutions';
+
   constructor(
     private router: Router,
     private auth: AuthService,
@@ -21,6 +23,7 @@ export class AppComponent {
   logout() {
     this.auth.logout();
     this.router.navigate(['login']);
+    this.companyName = 'Accounting Solutions';
   }
 
   isLoggedIn(): boolean {
@@ -38,7 +41,7 @@ export class AppComponent {
     this.dialog.open(CompanyComponent, config);
   }
 
-  showUserMessage(message, type) {
-
+  setCompanyTitle() {
+    this.companyName = JSON.parse(localStorage.getItem('company')).name;
   }
 }

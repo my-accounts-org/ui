@@ -9,6 +9,7 @@ import {SelectionModel} from '@angular/cdk/collections';
 import {Ng4LoadingSpinnerService} from 'ng4-loading-spinner';
 import {AccountsConstants} from '../shared/accounts.constants';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-company-list',
@@ -30,7 +31,8 @@ export class CompanyListComponent implements OnInit {
     private service: CompanyService,
     private spinnerService: Ng4LoadingSpinnerService,
     private accountsConstants: AccountsConstants,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private app: AppComponent
   ) {
   }
 
@@ -51,8 +53,8 @@ export class CompanyListComponent implements OnInit {
     if (numSelected > 0) {
       this.service.setDefaultCompany(this.selection.selected[0]).subscribe(
         (flag) => {
-          console.log('Default Set');
           localStorage.setItem('company', JSON.stringify(this.selection.selected[0]));
+          this.app.setCompanyTitle();
           this.snackBar.open(this.selection.selected[0].name + ' is ' + this.accountsConstants.SET_AS_DEFAULT, '', {
             duration: 2000,
           });

@@ -45,6 +45,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('user', JSON.stringify(data));
             localStorage.setItem('company', JSON.stringify(data.company));
             this.router.navigate(['dashboard']);
+            this.app.setCompanyTitle();
           }
         },
         (error) => {
