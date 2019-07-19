@@ -10,6 +10,7 @@ import {Ng4LoadingSpinnerService} from 'ng4-loading-spinner';
 import {AccountsConstants} from '../shared/accounts.constants';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { AppComponent } from '../app.component';
+import { MessageService } from '../shared/message.service';
 
 @Component({
   selector: 'app-company-list',
@@ -32,7 +33,8 @@ export class CompanyListComponent implements OnInit {
     private spinnerService: Ng4LoadingSpinnerService,
     private accountsConstants: AccountsConstants,
     private snackBar: MatSnackBar,
-    private app: AppComponent
+    private app: AppComponent,
+    private messageService: MessageService
   ) {
   }
 
@@ -55,9 +57,7 @@ export class CompanyListComponent implements OnInit {
         (flag) => {
           localStorage.setItem('company', JSON.stringify(this.selection.selected[0]));
           this.app.setAppTitle();
-          this.snackBar.open(this.selection.selected[0].name + ' is ' + this.accountsConstants.SET_AS_DEFAULT, '', {
-            duration: 2000,
-          });
+          this.messageService.showMessage(this.selection.selected[0].name + ' is ' + this.accountsConstants.SET_AS_DEFAULT);
         }
       );
     }

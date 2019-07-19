@@ -6,32 +6,32 @@
 <form [formGroup]="groupForm" (submit)="groupForm.valid && onCreate()" noval>
   <div class="form">
     <div class="company-info">
-        <mat-form-field>
+      <!-- Group Name -->
+      <mat-form-field>
             <mat-label>Group Name</mat-label>
             <input
               formControlName="name"
               [(ngModel)]="group.name"
               matInput placeholder="Enter group name">
         </mat-form-field>
+
+
         <mat-form-field>
-            <mat-label>Under</mat-label>
+          <mat-label>Under</mat-label>
             <mat-select>
                 <mat-option>Primary</mat-option>
-              <mat-option formControlName="group.under" *ngFor="let group of groups" [value]="group.id">
-                {{group.name}}
-              </mat-option>
+                <mat-option formControlName="under" *ngFor="let group of groups" [value]="group.id">
+                  {{group.name}}
+                </mat-option>
             </mat-select>
           </mat-form-field>
 
-          <mat-form-field>
-    </mat-form-field>
-      <p> Selected food: {{group.under}} </p>
 
-          <div class="actions">
-              <mat-card-actions>
-                  <button mat-raised-button [disabled]="!groupForm.valid">Create</button>
-              </mat-card-actions>
-          </div>
+      <div class="actions">
+          <mat-card-actions>
+              <button mat-raised-button [disabled]="!groupForm.valid">Create</button>
+          </mat-card-actions>
+      </div>
     </div>
 
   </div>

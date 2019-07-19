@@ -24,7 +24,7 @@ export class GroupComponent implements OnInit {
 
   ngOnInit() {
     this.company = JSON.parse(localStorage.getItem('company'));
-    if(this.company.id === 0) return;
+    if(this.company.id === 0) { return; }
     this.service.getAllGroups(this.company).subscribe(
       response => {
         this.groups = response;

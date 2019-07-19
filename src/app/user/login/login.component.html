@@ -3,7 +3,7 @@
       <div class="header">My Accounts Book</div>
       <form [formGroup]="loginForm" (ngSubmit)="loginForm.valid && onLogin()" noval>
         <div class="form-container">
-          <mat-form-field appearance="outline">
+          <mat-form-field>
               <mat-label>Username</mat-label>
               <input id="email"
                     formControlName="email"
@@ -11,7 +11,7 @@
                     matInput placeholder="Your email id here">
           </mat-form-field>
 
-          <mat-form-field appearance="outline">
+          <mat-form-field >
               <mat-label>Password</mat-label>
               <input id="password"
                     formControlName="password"
