@@ -54,7 +54,7 @@ export class CompanyListComponent implements OnInit {
       this.service.setDefaultCompany(this.selection.selected[0]).subscribe(
         (flag) => {
           localStorage.setItem('company', JSON.stringify(this.selection.selected[0]));
-          this.app.setCompanyTitle();
+          this.app.setAppTitle();
           this.snackBar.open(this.selection.selected[0].name + ' is ' + this.accountsConstants.SET_AS_DEFAULT, '', {
             duration: 2000,
           });

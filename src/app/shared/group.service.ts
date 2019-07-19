@@ -18,6 +18,7 @@ export class GroupService {
   }
 
   create(group: GroupModel) {
+    console.log(group);
     return this.http.post<GroupModel>(this.groupURL + '/add', group).pipe(timeout(2000));
   }
 }

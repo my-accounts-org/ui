@@ -15,7 +15,7 @@ export class GroupComponent implements OnInit {
   groups: GroupModel[];
   company: CompanyModel;
   groupForm: FormGroup;
-  nature: string[] = ['Asset', 'Expenses', 'Income', 'Liability'];
+  groupNature: string[] = ['Asset', 'Expenses', 'Income', 'Liability'];
 
   constructor(
     private fb: FormBuilder,
@@ -24,6 +24,7 @@ export class GroupComponent implements OnInit {
 
   ngOnInit() {
     this.company = JSON.parse(localStorage.getItem('company'));
+    if(this.company.id === 0) return;
     this.service.getAllGroups(this.company).subscribe(
       response => {
         this.groups = response;

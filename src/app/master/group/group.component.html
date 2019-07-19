@@ -16,24 +16,20 @@
         <mat-form-field>
             <mat-label>Under</mat-label>
             <mat-select>
-                <mat-option [value]="nature">Primary</mat-option>
-              <mat-option *ngFor="let group of groups" [value]="group.id">
+                <mat-option>Primary</mat-option>
+              <mat-option formControlName="group.under" *ngFor="let group of groups" [value]="group.id">
                 {{group.name}}
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <mat-form-field *ngIf="!group.id">
-            <mat-label>Nature of Group</mat-label>
-            <mat-select>
-              <mat-option *ngFor="let x of nature" [value]="x">
-                {{x}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+
+          <mat-form-field>
+    </mat-form-field>
+      <p> Selected food: {{group.under}} </p>
 
           <div class="actions">
               <mat-card-actions>
-                  <button mat-raised-button [disabled]="!groupForm.valid" >Create</button>
+                  <button mat-raised-button [disabled]="!groupForm.valid">Create</button>
               </mat-card-actions>
           </div>
     </div>

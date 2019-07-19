@@ -43,16 +43,20 @@ export class LoginComponent implements OnInit {
         (data: any) => {
           if (data) {
             localStorage.setItem('user', JSON.stringify(data));
-            localStorage.setItem('company', JSON.stringify(data.company));
+            if(data.company){
+              this.app.setAppTitle();
+              this.app.currentCompany = data.company;
+            }
+            this.app.setDefaultCompany(this.app.currentCompany);
             this.router.navigate(['dashboard']);
-            this.app.setCompanyTitle();
           }
         },
         (error) => {
           this.spinnerService.hide();
           if(error.status){
             switch (error.status) {
-              case 401: this.messageService.showMessage(error.error.message, ''); break;
+              case 401: this.messageService.showMessage(error.error.errorMessage, 'EC:'+error.status); break;
+              case 404: this.messageService.showMessage(error.statusText, ''); break;
               case 504: this.messageService.showMessage(error.statusText + ' Server is down!', '');
             }
           } else {
