@@ -78,7 +78,7 @@ export class CompanyListComponent implements OnInit {
         });
       },
       (error) => {
-        console.log(error.message);
+        this.messageService.showMessage(error.statusText);
       }
     );
 

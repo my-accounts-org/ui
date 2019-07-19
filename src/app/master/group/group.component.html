@@ -29,8 +29,8 @@
       <mat-form-field *ngIf="[group.under] == -1">
         <mat-label>Nature</mat-label>
           <mat-select [(ngModel)]="group.nature" formControlName="nature">
-              <mat-option *ngFor="let type of groupNature" [value]="type">
-                {{type}}
+              <mat-option *ngFor="let type of groupNature" [value]="type.id">
+                {{type.name}}
               </mat-option>
           </mat-select>
         </mat-form-field>

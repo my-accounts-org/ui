@@ -5,6 +5,12 @@ import { GroupService } from 'src/app/shared/group.service';
 import { CompanyModel } from 'src/app/models/company.model';
 import { MessageService } from 'src/app/shared/message.service';
 
+
+export interface GroupNature {
+    id: number;
+    name: string;
+}
+
 @Component({
   selector: 'app-group',
   templateUrl: './group.component.html',
@@ -16,7 +22,11 @@ export class GroupComponent implements OnInit {
   groups: GroupModel[];
   company: CompanyModel;
   groupForm: FormGroup;
-  groupNature: string[] = ['Asset', 'Expenses', 'Income', 'Liability'];
+  groupNature: GroupNature[] = [
+      {id: 1, name: 'Asset'},
+      {id: 2, name: 'Expense'},
+      {id: 3, name: 'Income'},
+      {id: 4, name: 'Liability'}];
 
   constructor(
     private fb: FormBuilder,
@@ -44,9 +54,11 @@ export class GroupComponent implements OnInit {
     });
   }
 
-  onCreate(){
-    this.service.create(this.group).subscribe(
-      response => {}
+  onCreate() {
+    this.service.create(this.group, this.company.id).subscribe(
+      response => {
+        this.messageService.showMessage('Group created successfully');
+      }
     );
   }
 }
