@@ -3,6 +3,7 @@ import { GroupModel } from 'src/app/models/group.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { GroupService } from 'src/app/shared/group.service';
 import { CompanyModel } from 'src/app/models/company.model';
+import { MessageService } from 'src/app/shared/message.service';
 
 @Component({
   selector: 'app-group',
@@ -19,12 +20,16 @@ export class GroupComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private service: GroupService
+    private service: GroupService,
+    private messageService: MessageService
   ) { }
 
   ngOnInit() {
     this.company = JSON.parse(localStorage.getItem('company'));
-    if(this.company.id === 0) { return; }
+    if (this.company.id === 0) {
+      this.messageService.showMessage('Default company not set! Please set it in company master');
+      return;
+    }
     this.service.getAllGroups(this.company).subscribe(
       response => {
         this.groups = response;

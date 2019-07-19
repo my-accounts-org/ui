@@ -15,17 +15,33 @@
               matInput placeholder="Enter group name">
         </mat-form-field>
 
-
+        <!-- Group Under -->
         <mat-form-field>
           <mat-label>Under</mat-label>
-            <mat-select>
-                <mat-option>Primary</mat-option>
-                <mat-option formControlName="under" *ngFor="let group of groups" [value]="group.id">
+            <mat-select [(ngModel)]="group.under" formControlName="under">
+                <mat-option [value]="-1">Primary</mat-option>
+                <mat-option *ngFor="let group of groups" [value]="group.id">
                   {{group.name}}
                 </mat-option>
             </mat-select>
+        </mat-form-field>
+      <!-- Nature -->
+      <mat-form-field *ngIf="[group.under] == -1">
+        <mat-label>Nature</mat-label>
+          <mat-select [(ngModel)]="group.nature" formControlName="nature">
+              <mat-option *ngFor="let type of groupNature" [value]="type">
+                {{type}}
+              </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <!-- Gross Affected? -->
+        <mat-form-field *ngIf="[group.under] == -1 && [group.nature] == 'Asset' || [group.nature] == 'Income' ">
+          <mat-label>Is Gross Affected</mat-label>
+            <mat-select [(ngModel)]="group.grossAffected" formControlName="grossAffected">
+                <mat-option [value]="1">Yes</mat-option>
+                <mat-option [value]="0">No</mat-option>
+            </mat-select>
           </mat-form-field>
-
 
       <div class="actions">
           <mat-card-actions>

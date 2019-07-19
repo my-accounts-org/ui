@@ -53,7 +53,7 @@ export class GroupListComponent implements OnInit {
   add() {
     const config: MatDialogConfig = new MatDialogConfig();
     config.autoFocus = true;
-    config.width = '700px';
+    config.width = '350px';
     const dialogRef = this.dialog.open(GroupComponent, config);
 
     dialogRef.afterClosed().subscribe((group: GroupModel) => {
