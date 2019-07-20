@@ -19,14 +19,14 @@
         <mat-form-field>
           <mat-label>Under</mat-label>
             <mat-select [(ngModel)]="group.under" formControlName="under">
-                <mat-option [value]="-1">Primary</mat-option>
+                <mat-option [value]="0">Primary</mat-option>
                 <mat-option *ngFor="let group of groups" [value]="group.id">
                   {{group.name}}
                 </mat-option>
             </mat-select>
         </mat-form-field>
       <!-- Nature -->
-      <mat-form-field *ngIf="[group.under] == -1">
+      <mat-form-field *ngIf="[group.under] == 0">
         <mat-label>Nature</mat-label>
           <mat-select [(ngModel)]="group.nature" formControlName="nature">
               <mat-option *ngFor="let type of groupNature" [value]="type.id">
@@ -35,11 +35,11 @@
           </mat-select>
         </mat-form-field>
         <!-- Gross Affected? -->
-        <mat-form-field *ngIf="[group.under] == -1 && [group.nature] == 'Asset' || [group.nature] == 'Income' ">
+        <mat-form-field *ngIf="[group.under] == 0 && [group.nature] == 2 || [group.nature] == 3 ">
           <mat-label>Is Gross Affected</mat-label>
             <mat-select [(ngModel)]="group.grossAffected" formControlName="grossAffected">
-                <mat-option [value]="1">Yes</mat-option>
-                <mat-option [value]="0">No</mat-option>
+                <mat-option [value]="true">Yes</mat-option>
+                <mat-option [value]="false">No</mat-option>
             </mat-select>
           </mat-form-field>
 

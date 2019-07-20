@@ -7,6 +7,7 @@ import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Ng4LoadingSpinnerService} from 'ng4-loading-spinner';
 import {AccountsConstants} from '../../shared/accounts.constants';
+import { MessageService } from 'src/app/shared/message.service';
 
 
 @Component({
@@ -27,12 +28,13 @@ export class CompanyComponent implements OnInit {
     public dialogRef: MatDialogRef<CompanyComponent>,
     private spinnerService: Ng4LoadingSpinnerService,
     private snackBar: MatSnackBar,
+    private messageService: MessageService,
     private accountsConstants: AccountsConstants,
     @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
   ngOnInit() {
-    this.company.name = 'Vivek & Company';
+    this.company.name = 'JK Cement Pvt Ltd';
     this.company.mailingName = '';
     this.company.mailingAddress = 'Bangalore';
     this.company.financialYear = '2019-04-01';
@@ -59,26 +61,18 @@ export class CompanyComponent implements OnInit {
 
   onCreate() {
     this.spinnerService.show();
-    this.service.create(this.company).subscribe(
+    this.service.create(this.company).subscribe (
       (company: CompanyModel) => {
         if (company.id > 0) {
           this.dialogRef.close(company);
-          this.snackBar.open(this.accountsConstants.COMPANY_CREATE, this.accountsConstants.SUCCESS_MESSAGE, {
-            duration: 2000,
-          });
-          this.infoMessage = 'Company created succesfully';
+          this.messageService.showMessage(this.accountsConstants.COMPANY_CREATE, this.accountsConstants.SUCCESS_MESSAGE);
         } else {
-          this.snackBar.open(this.accountsConstants.COMPANY_CREATE, this.accountsConstants.FAILUR_MESSAGE, {
-            duration: 2000,
-          });
-          this.infoMessage = 'Error while creating company!';
+          this.messageService.showMessage(this.accountsConstants.COMPANY_CREATE, this.accountsConstants.FAILUR_MESSAGE);
         }
       },
       (error) => {
-        this.infoMessage = error.message;
-        this.snackBar.open(this.accountsConstants.COMPANY_CREATE, this.accountsConstants.FAILUR_MESSAGE, {
-          duration: 2000,
-        });
+
+        this.messageService.showMessage(this.accountsConstants.COMPANY_CREATE, this.accountsConstants.FAILUR_MESSAGE);
       },
       () => this.spinnerService.hide()
     );
