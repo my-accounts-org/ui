@@ -4,6 +4,7 @@ export class GroupModel {
   under: number;
   nature: string;
   grossAffected: boolean;
-  isDefault: boolean;
+  default: boolean;
   nameOfGroupUnder: string;
+  config: number;
 }

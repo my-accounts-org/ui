@@ -61,8 +61,8 @@ export class GroupComponent implements OnInit {
   }
 
   onCreate() {
-
-    this.service.create(this.group, this.company.id).subscribe(
+    this.group.config = this.company.id;
+    this.service.create(this.group).subscribe(
       response => {
         this.dialogRef.close(response);
         this.messageService.showMessage('Group ' + response.name + ' created successfully');

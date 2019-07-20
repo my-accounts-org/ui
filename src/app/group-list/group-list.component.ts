@@ -5,6 +5,7 @@ import { GroupService } from '../shared/group.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { CompanyModel } from '../models/company.model';
 import { GroupComponent } from '../master/group/group.component';
+import { MessageService } from '../shared/message.service';
 
 @Component({
   selector: 'app-group-list',
@@ -27,7 +28,8 @@ export class GroupListComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private service: GroupService
+    private service: GroupService,
+    private messageService: MessageService
   ) { }
 
   ngOnInit() {
@@ -61,6 +63,19 @@ export class GroupListComponent implements OnInit {
         this.groups.push(group);
         this.dataSource.data = this.groups;
       }
+    });
+  }
+
+  delete(group: GroupModel) {
+    if (group.default) {
+      this.messageService.showMessage('You cannot delete the systen created groups!');
+      return;
+    }
+    this.service.delete(group).subscribe(response => {
+      this.groups = this.groups.filter((value, index, arr) => {
+        return value.id !== group.id;
+      });
+      this.dataSource.data = this.groups;
     });
   }
 

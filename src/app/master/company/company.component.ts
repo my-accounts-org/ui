@@ -71,7 +71,6 @@ export class CompanyComponent implements OnInit {
         }
       },
       (error) => {
-
         this.messageService.showMessage(this.accountsConstants.COMPANY_CREATE, this.accountsConstants.FAILUR_MESSAGE);
       },
       () => this.spinnerService.hide()
