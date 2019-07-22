@@ -70,8 +70,9 @@ export class LedgerComponent implements OnInit {
   }
 
   onCreate(){
+    this.ledger.config = this.company.id;
     this.spinnerService.show();
-    this.service.create(this.ledger, this.company).subscribe(
+    this.service.create(this.ledger).subscribe(
       (ledger: LedgerModel) => {
         if (ledger.id > 0) {
           this.dialogRef.close(ledger);

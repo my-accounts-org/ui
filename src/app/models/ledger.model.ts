@@ -8,4 +8,5 @@ export class LedgerModel {
   mailingAddress: string;
   fixedName: string;
   ledgerUnderGroupName: string;
+  config: number;
 }

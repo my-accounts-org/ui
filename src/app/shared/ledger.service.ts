@@ -24,7 +24,7 @@ export class LedgerService {
     return this.http.post<LedgerModel[]>(this.ledgerURL, company).pipe(timeout(5000));
   }
 
-  create(ledger: LedgerModel, company: CompanyModel) {
-    return this.http.put<LedgerModel>(this.ledgerURL+'/'+company.id, ledger).pipe(timeout(2000));
+  create(ledger: LedgerModel) {
+    return this.http.put<LedgerModel>(this.ledgerURL, ledger).pipe(timeout(2000));
   }
 }
