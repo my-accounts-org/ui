@@ -16,6 +16,7 @@ import { GroupComponent } from './master/group/group.component';
 import { GroupListComponent } from './group-list/group-list.component';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 import { LedgerListComponent } from './ledger-list/ledger-list.component';
+import { LedgerComponent } from './master/ledger/ledger.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { LedgerListComponent } from './ledger-list/ledger-list.component';
     CompanyListComponent,
     GroupComponent,
     GroupListComponent,
-    LedgerListComponent
+    LedgerListComponent,
+    LedgerComponent
   ],
   imports: [
     BrowserModule,
@@ -41,6 +43,6 @@ import { LedgerListComponent } from './ledger-list/ledger-list.component';
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent],
-  entryComponents: [CompanyComponent, GroupComponent]
+  entryComponents: [CompanyComponent, GroupComponent, LedgerComponent]
 })
 export class AppModule { }

@@ -1,0 +1,59 @@
+<mat-toolbar color="primary">
+  <span>Create Ledger</span>
+  <span class="example-fill-remaining-space"></span>
+  <button mat-mini-fab mat-dialog-close>
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-toolbar>
+<form [formGroup]="ledgerForm" (submit)="ledgerForm.valid && onCreate()" noval>
+  <div class="form">
+    <div class="ledger-info">
+      <mat-form-field>
+        <mat-label>Ledger Name</mat-label>
+        <input
+          formControlName="name"
+          [(ngModel)]="ledger.name"
+          matInput placeholder="Enter your ledger name">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Mailing Name</mat-label>
+        <input
+          formControlName="mailingName"
+          [(ngModel)]="ledger.mailingName"
+          matInput placeholder="Enter your mailing name">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Under</mat-label>
+        <mat-select
+          formControlName="under"
+          [(ngModel)]="ledger.under">
+          <mat-option [value]="-1">Primary</mat-option>
+          <mat-option *ngFor="let group of groups" [value]="group.id">
+            {{group.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="other-info">
+        <mat-form-field>
+          <mat-label>Mailing Address</mat-label>
+          <input
+            formControlName="mailingAddress"
+            [(ngModel)]="ledger.mailingAddress"
+            matInput placeholder="Enter your postal address">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Opening Balance</mat-label>
+          <input
+            formControlName="openingBalance"
+            [(ngModel)]="ledger.openingBalance"
+            matInput placeholder="Enter opening balance">
+        </mat-form-field>
+      </div>
+  </div>
+  <div class="actions">
+    <mat-card-actions>
+      <button mat-raised-button [disabled]="!ledgerForm.valid">Create</button>
+    </mat-card-actions>
+  </div>
+</form>
