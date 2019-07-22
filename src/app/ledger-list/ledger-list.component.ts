@@ -3,11 +3,13 @@ import {CompanyModel} from "../models/company.model";
 import {MatTableDataSource} from "@angular/material/table";
 import {LedgerModel} from "../models/ledger.model";
 import {MatPaginator} from "@angular/material/paginator";
-import {MatDialog, MatSort} from "@angular/material";
+import {MatDialog, MatDialogConfig, MatSort} from "@angular/material";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {AccountsConstants} from "../shared/accounts.constants";
 import {Ng4LoadingSpinnerService} from "ng4-loading-spinner";
 import {LedgerService} from "../shared/ledger.service";
+import {CompanyComponent} from "../master/company/company.component";
+import {LedgerComponent} from "../master/ledger/ledger.component";
 
 @Component({
   selector: 'app-ledger-list',
@@ -46,5 +48,18 @@ export class LedgerListComponent implements OnInit {
         console.log(error.message);
       }
     );
+  }
+
+  add() {
+    const config: MatDialogConfig = new MatDialogConfig();
+    config.autoFocus = true;
+    const dialogRef = this.dialog.open(LedgerComponent, config);
+
+    dialogRef.afterClosed().subscribe((ledger: LedgerModel) => {
+      if (ledger) {
+        this.ledgers.push(ledger);
+        this.dataSource.data = this.ledgers;
+      }
+    });
   }
 }
