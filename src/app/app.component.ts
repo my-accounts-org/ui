@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {AuthService} from './shared/auth.service';
 import {MatDialog, MatDialogConfig} from '@angular/material';
 import {CompanyComponent} from './master/company/company.component';
-import {CompanyModel} from "./models/company.model";
+import {CompanyModel} from './models/company.model';
 
 @Component({
   selector: 'app-root',

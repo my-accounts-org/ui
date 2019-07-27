@@ -1,13 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {LoginModel} from '../../models/login.model';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {AuthService} from '.././../shared/auth.service';
 import {AppComponent} from 'src/app/app.component';
 import {Router} from '@angular/router';
 import {Ng4LoadingSpinnerService} from 'ng4-loading-spinner';
-import {MessageService} from "../../shared/message.service";
-
-
+import {MessageService} from '../../shared/message.service';
+import { UserModel } from 'src/app/models/user.model';
+import { AuthorizedUserModel } from 'src/app/models/authorizeduser.model';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +15,7 @@ import {MessageService} from "../../shared/message.service";
 })
 export class LoginComponent implements OnInit {
 
-  user: LoginModel = new LoginModel();
+  user: UserModel = new UserModel();
   loginForm: FormGroup;
   hide = true;
   error: string;
@@ -37,6 +36,22 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
+    this.spinnerService.show();
+    this.service.login(this.user).subscribe(
+      (authUser: AuthorizedUserModel) => {
+        localStorage.setItem('token', authUser.token);
+        localStorage.setItem('company', JSON.stringify(authUser.user.company));
+        this.messageService.showMessage('Loggin Successfull');
+        this.spinnerService.hide();
+        this.router.navigate(['dashboard']);
+      },
+      (error) => {
+        this.messageService.showMessage('Login failed');
+      }
+    );
+  }
+
+  Login() {
     this.spinnerService.show();
     this.service.login(this.user)
       .subscribe(

@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {LoginModel} from '../models/login.model';
 import {timeout} from 'rxjs/operators';
+import { AuthorizedUserModel } from '../models/authorizeduser.model';
+import { UserModel } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,19 +14,16 @@ export class AuthService {
   constructor(private http: HttpClient) {
   }
 
-  login(user: LoginModel) {
-    return this.http.post<LoginModel>(this.loginURL, user).pipe(
-      timeout(5000)
-    );
+  login(user: UserModel) {
+    return this.http.post<AuthorizedUserModel>(this.loginURL, user).pipe(timeout(3000));
   }
 
   isLoggedIn(): boolean {
-    return !!JSON.parse(localStorage.getItem('user'));
+    return !!localStorage.getItem('token');
   }
 
   logout() {
-    localStorage.removeItem('user');
-    localStorage.removeItem('company');
+    localStorage.removeItem('token');
   }
 
 }

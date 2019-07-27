@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { timeout } from 'rxjs/operators';
 import { GroupModel } from '../models/group.model';
 import { CompanyModel } from '../models/company.model';
@@ -12,17 +12,28 @@ export class GroupService {
 
   private groupURL = '/ac/api/groups';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
-  getAllGroups(company: CompanyModel) {
-    return this.http.post<GroupModel[]>(this.groupURL, company).pipe(timeout(5000));
+  getHeaders() {
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('Authorization', 'Bearer ' +  localStorage.getItem('token'));
+    return headers;
+  }
+
+  getAllGroups(companyId: number) {
+    const headers = this.getHeaders();
+    return this.http.get<GroupModel[]>(this.groupURL + '/' + companyId, {headers}).pipe(timeout(5000));
   }
 
   create(group: GroupModel) {
-    return this.http.put<GroupModel>(this.groupURL, group).pipe(timeout(2000));
+    const headers = this.getHeaders();
+    return this.http.put<GroupModel>(this.groupURL, group, {headers}).pipe(timeout(2000));
   }
 
   delete(group: GroupModel) {
-    return this.http.delete<BooleanValue>(this.groupURL + '/' + group.config + '/' + group.id);
+    const headers = this.getHeaders();
+    return this.http.delete<BooleanValue>(this.groupURL + '/' + group.config + '/' + group.id, {headers});
   }
 }

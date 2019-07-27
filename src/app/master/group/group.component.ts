@@ -42,11 +42,11 @@ export class GroupComponent implements OnInit {
 
   ngOnInit() {
     this.company = JSON.parse(localStorage.getItem('company'));
-    if (this.company.id === 0) {
+    if (this.company === undefined) {
       this.messageService.showMessage('Default company not set! Please set it in company master');
       return;
     }
-    this.service.getAllGroups(this.company).subscribe(
+    this.service.getAllGroups(this.company.id).subscribe(
       response => {
         this.groups = response;
         this.groups.sort((a, b) => a.name > b.name ? 1 : -1 );
@@ -66,6 +66,9 @@ export class GroupComponent implements OnInit {
       response => {
         this.dialogRef.close(response);
         this.messageService.showMessage('Group ' + response.name + ' created successfully');
+      },
+      error => {
+        this.messageService.showMessage(error.error.errorMessage);
       }
     );
   }

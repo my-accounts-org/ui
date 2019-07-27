@@ -34,7 +34,7 @@ export class GroupListComponent implements OnInit {
 
   ngOnInit() {
     this.defaultCompany = JSON.parse(localStorage.getItem('company'));
-    this.service.getAllGroups(this.defaultCompany).subscribe(
+    this.service.getAllGroups(this.defaultCompany.id).subscribe(
       (response) => {
         this.groups = response;
         this.dataSource = new MatTableDataSource<GroupModel>(this.groups);
