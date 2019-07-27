@@ -4,22 +4,17 @@ import { timeout } from 'rxjs/operators';
 import { GroupModel } from '../models/group.model';
 import { CompanyModel } from '../models/company.model';
 import { BooleanValue } from '../models/returntypes';
+import { ServiceHelper } from '../models/service.helper';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GroupService {
+export class GroupService extends ServiceHelper {
 
   private groupURL = '/ac/api/groups';
 
   constructor(private http: HttpClient) {
-  }
-
-  getHeaders() {
-    let headers = new HttpHeaders();
-    headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('Authorization', 'Bearer ' +  localStorage.getItem('token'));
-    return headers;
+    super();
   }
 
   getAllGroups(companyId: number) {

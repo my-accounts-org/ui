@@ -54,7 +54,7 @@ export class LedgerComponent implements OnInit {
     this.ledger.mailingAddress = 'Bangalore';
 
     this.company = JSON.parse(localStorage.getItem('company'));
-    this.service.getAllGroups(this.company).subscribe(
+    this.service.getAllGroups(this.company.id).subscribe(
       response => {
         this.groups = response;
         this.groups.sort((a, b) => a.name > b.name ? 1 : -1);

@@ -37,7 +37,7 @@ export class LedgerListComponent implements OnInit {
 
   ngOnInit() {
     this.defaultCompany = JSON.parse(localStorage.getItem('company'));
-    this.service.getAllLedgers(this.defaultCompany).subscribe(
+    this.service.getAllLedgers(this.defaultCompany.id).subscribe(
       (response) => {
         this.ledgers = response;
         this.dataSource = new MatTableDataSource<LedgerModel>(this.ledgers);
