@@ -12,6 +12,7 @@ import {CompanyService} from "../../shared/company.service";
 import {LedgerService} from "../../shared/ledger.service";
 import {GroupModel} from "../../models/group.model";
 import {MessageService} from "../../shared/message.service";
+import { GroupService } from 'src/app/shared/group.service';
 
 export interface Types {
   name: string;
@@ -33,6 +34,7 @@ export class LedgerComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private service: LedgerService,
+    private groupService: GroupService,
     private messageService: MessageService,
     public dialogRef: MatDialogRef<CompanyComponent>,
     private spinnerService: Ng4LoadingSpinnerService,
@@ -54,7 +56,7 @@ export class LedgerComponent implements OnInit {
     this.ledger.mailingAddress = 'Bangalore';
 
     this.company = JSON.parse(localStorage.getItem('company'));
-    this.service.getAllGroups(this.company.id).subscribe(
+    this.groupService.getAllGroups(this.company.id).subscribe(
       response => {
         this.groups = response;
         this.groups.sort((a, b) => a.name > b.name ? 1 : -1);

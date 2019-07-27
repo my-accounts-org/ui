@@ -18,11 +18,6 @@ export class LedgerService extends ServiceHelper {
     super();
   }
 
-  getAllGroups(companyId: number) {
-    const headers = this.getHeaders();
-    return this.http.get<GroupModel[]>(this.groupURL + '/' + companyId, {headers}).pipe(timeout(5000));
-  }
-
   getAllLedgers(companyId: number) {
     const headers = this.getHeaders();
     return this.http.get<LedgerModel[]>(this.ledgerURL + '/' + companyId, {headers} ).pipe(timeout(5000));
