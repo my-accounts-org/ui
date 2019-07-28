@@ -39,6 +39,7 @@ export class GroupListComponent implements OnInit {
         this.groups = response;
         this.dataSource = new MatTableDataSource<GroupModel>(this.groups);
         this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
         this.selection = new SelectionModel<GroupModel>(false);
       }
     );
