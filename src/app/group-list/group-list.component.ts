@@ -6,6 +6,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { CompanyModel } from '../models/company.model';
 import { GroupComponent } from '../master/group/group.component';
 import { MessageService } from '../shared/message.service';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-group-list',
@@ -20,21 +21,20 @@ export class GroupListComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  displayedColumns: string[] = ['select', 'name', 'under', 'actions'];
+  displayedColumns: string[] = ['sno', 'name', 'under', 'actions'];
 
   selection: SelectionModel<GroupModel>;
 
-  defaultCompany: CompanyModel;
-
   constructor(
     private dialog: MatDialog,
+    private app: AppComponent,
     private service: GroupService,
     private messageService: MessageService
   ) { }
 
   ngOnInit() {
-    this.defaultCompany = JSON.parse(localStorage.getItem('company'));
-    this.service.getAllGroups(this.defaultCompany.id).subscribe(
+    this.app.setAppTitle();
+    this.service.getAllGroups(this.app.currentCompany.id).subscribe(
       (response) => {
         this.groups = response;
         this.dataSource = new MatTableDataSource<GroupModel>(this.groups);

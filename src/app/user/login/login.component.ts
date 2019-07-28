@@ -46,40 +46,18 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['dashboard']);
       },
       (error) => {
-        this.messageService.showMessage('Login failed');
-      }
-    );
-  }
-
-  Login() {
-    this.spinnerService.show();
-    this.service.login(this.user)
-      .subscribe(
-        (data: any) => {
-          if (data) {
-            localStorage.setItem('user', JSON.stringify(data));
-            if(data.company){
-              this.app.setAppTitle();
-              this.app.currentCompany = data.company;
-            }
-            this.app.setDefaultCompany(this.app.currentCompany);
-            this.router.navigate(['dashboard']);
-          }
-        },
-        (error) => {
-          this.spinnerService.hide();
-          if(error.status){
+        this.spinnerService.hide();
+        if (error.status) {
             switch (error.status) {
-              case 401: this.messageService.showMessage(error.error.errorMessage, 'EC:'+error.status); break;
+              case 401: this.messageService.showMessage(error.error.errorMessage, 'EC:' + error.status); break;
               case 404: this.messageService.showMessage(error.statusText, ''); break;
               case 504: this.messageService.showMessage(error.statusText + ' Server is down!', '');
             }
           } else {
             this.messageService.showMessage(error, '');
           }
-        },
-        () => {this.spinnerService.hide(); }
-      );
+      },
+      () => {this.spinnerService.hide(); }
+    );
   }
-
 }

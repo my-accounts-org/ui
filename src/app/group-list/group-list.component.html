@@ -7,13 +7,18 @@
     <!--- Note that these columns can be defined in any order.
               The actual rendered columns are set as a property on the row definition" -->
 
+    <!-- Position Column -->
+    <ng-container matColumnDef="sno">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Sl. No. </mat-header-cell>
+      <mat-cell *matCellDef="let element; let i = index"> {{i + (paginator.pageIndex * paginator.pageSize) + 1}} </mat-cell>
+    </ng-container>
+
     <!-- Checkbox Column -->
     <ng-container matColumnDef="select">
       <mat-header-cell *matHeaderCellDef class="action">
       </mat-header-cell>
       <mat-cell *matCellDef="let row" class="action">
-        <mat-checkbox (change)="$event ? selectRow(row) : null"
-          [checked]="selection.isSelected(row)">
+        <mat-checkbox (change)="$event ? selectRow(row) : null" [checked]="selection.isSelected(row)">
         </mat-checkbox>
 
       </mat-cell>
@@ -39,7 +44,7 @@
           <mat-icon matTooltip="Edit Company">launch</mat-icon>
         </button>
         <button mat-icon-button>
-          <mat-icon color="warn" matTooltip="Delete Group"  (click)="delete(element)" >delete_outline</mat-icon>
+          <mat-icon color="warn" matTooltip="Delete Group" (click)="delete(element)">delete_outline</mat-icon>
         </button>
       </mat-cell>
     </ng-container>

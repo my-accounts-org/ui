@@ -5,8 +5,13 @@
   </mat-toolbar>
   <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
-
     <!-- Position Column -->
+    <ng-container matColumnDef="sno">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Sl. No. </mat-header-cell>
+      <mat-cell *matCellDef="let element; let i = index"> {{i + (paginator.pageIndex * paginator.pageSize) + 1}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Ledger Name </mat-header-cell>
 

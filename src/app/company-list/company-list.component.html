@@ -7,6 +7,13 @@
     <!--- Note that these columns can be defined in any order.
               The actual rendered columns are set as a property on the row definition" -->
 
+    <!-- Position Column -->
+    <ng-container matColumnDef="sno">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Sl. No. </mat-header-cell>
+      <mat-cell *matCellDef="let element; let i = index"> {{i + (paginator.pageIndex * paginator.pageSize) + 1}} </mat-cell>
+    </ng-container>
+
+
     <!-- Checkbox Column -->
     <ng-container matColumnDef="select">
       <mat-header-cell *matHeaderCellDef class="action">
@@ -20,19 +27,19 @@
       </mat-cell>
     </ng-container>
 
-    <!-- Position Column -->
+    <!-- Name Column -->
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
     </ng-container>
 
-    <!-- Name Column -->
+    <!-- Address Column -->
     <ng-container matColumnDef="address">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Address </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.mailingAddress}} </mat-cell>
     </ng-container>
 
-    <!-- Weight Column -->
+    <!-- Financial Year Column -->
     <ng-container matColumnDef="FY">
       <mat-header-cell *matHeaderCellDef> Financial Year </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.financialYear | date: 'dd-MMM-yyyy'}} </mat-cell>

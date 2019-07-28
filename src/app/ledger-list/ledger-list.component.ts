@@ -10,6 +10,7 @@ import {Ng4LoadingSpinnerService} from 'ng4-loading-spinner';
 import {LedgerService} from '../shared/ledger.service';
 import {CompanyComponent} from '../master/company/company.component';
 import {LedgerComponent} from '../master/ledger/ledger.component';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-ledger-list',
@@ -21,23 +22,22 @@ export class LedgerListComponent implements OnInit {
   ledgers: LedgerModel[];
   dataSource: MatTableDataSource<LedgerModel>;
 
-  displayedColumns: string[] = ['name', 'under', 'o_bal'];
-
-  defaultCompany: CompanyModel;
+  displayedColumns: string[] = ['sno', 'name', 'under', 'o_bal'];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(private dialog: MatDialog,
               private service: LedgerService,
+              private app: AppComponent,
               private spinnerService: Ng4LoadingSpinnerService,
               private accountsConstants: AccountsConstants,
               private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
-    this.defaultCompany = JSON.parse(localStorage.getItem('company'));
-    this.service.getAllLedgers(this.defaultCompany.id).subscribe(
+    this.app.setAppTitle();
+    this.service.getAllLedgers(this.app.currentCompany.id).subscribe(
       (response) => {
         this.ledgers = response;
         this.dataSource = new MatTableDataSource<LedgerModel>(this.ledgers);

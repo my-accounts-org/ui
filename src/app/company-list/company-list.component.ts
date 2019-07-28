@@ -25,7 +25,7 @@ export class CompanyListComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  displayedColumns: string[] = ['select', 'name', 'address', 'FY', 'BY', 'actions'];
+  displayedColumns: string[] = ['sno', 'select', 'name', 'address', 'FY', 'BY', 'actions'];
 
   constructor(
     private dialog: MatDialog,
@@ -40,31 +40,8 @@ export class CompanyListComponent implements OnInit {
 
   selection: SelectionModel<CompanyModel>;
 
-  selectRow(row: CompanyModel) {
-    if (!this.selection.isSelected(row)) {
-      this.selection.select(row);
-      this.setDefaultCompany();
-    } else {
-      this.selection.clear();
-    }
-
-  }
-
-  setDefaultCompany() {
-    const numSelected = this.selection.selected.length;
-    if (numSelected > 0) {
-      this.service.setDefaultCompany(this.selection.selected[0]).subscribe(
-        (flag) => {
-          localStorage.setItem('company', JSON.stringify(this.selection.selected[0]));
-          this.app.setAppTitle();
-          this.messageService.showMessage(this.selection.selected[0].name + ' is ' + this.accountsConstants.SET_AS_DEFAULT);
-        }
-      );
-    }
-  }
-
-
   ngOnInit() {
+    this.app.setAppTitle();
     this.service.getAllCompanies().subscribe(
       (response) => {
         this.companies = response;
@@ -78,7 +55,7 @@ export class CompanyListComponent implements OnInit {
         });
       },
       (error) => {
-        this.messageService.showMessage(error.statusText);
+        this.messageService.showMessage(error.error, error.statusText);
       }
     );
 
@@ -121,6 +98,30 @@ export class CompanyListComponent implements OnInit {
       },
       () => this.spinnerService.hide()
     );
+  }
+
+
+  selectRow(row: CompanyModel) {
+    if (!this.selection.isSelected(row)) {
+      this.selection.select(row);
+      this.setDefaultCompany();
+    } else {
+      this.selection.clear();
+    }
+
+  }
+
+  setDefaultCompany() {
+    const numSelected = this.selection.selected.length;
+    if (numSelected > 0) {
+      this.service.setDefaultCompany(this.selection.selected[0]).subscribe(
+        (flag) => {
+          localStorage.setItem('company', JSON.stringify(this.selection.selected[0]));
+          this.app.setAppTitle();
+          this.messageService.showMessage(this.selection.selected[0].name + ' is ' + this.accountsConstants.SET_AS_DEFAULT);
+        }
+      );
+    }
   }
 
 }

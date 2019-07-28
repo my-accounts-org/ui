@@ -50,7 +50,11 @@ export class AppComponent {
   }
 
   setAppTitle() {
-    this.currentCompany = JSON.parse(localStorage.getItem('company'));
+    if (localStorage.getItem('company') !== undefined && localStorage.getItem('company') !== 'undefined') {
+      this.currentCompany = JSON.parse(localStorage.getItem('company'));
+    } else {
+      this.currentCompany = this.defaultCompany;
+    }
   }
 
   setDefaultCompany(company) {
