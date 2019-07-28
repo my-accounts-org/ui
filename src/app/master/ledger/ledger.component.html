@@ -49,6 +49,13 @@
             [(ngModel)]="ledger.openingBalance"
             matInput placeholder="Enter opening balance">
         </mat-form-field>
+        <mat-form-field>
+          <mat-label>CR/DR</mat-label>
+            <mat-select [(ngModel)]="ledger.crDr" formControlName="crDr">
+                <mat-option value="Cr">Cr - Credit</mat-option>
+                <mat-option value="Dr">Dr - Debit</mat-option>
+            </mat-select>
+        </mat-form-field>
       </div>
   </div>
   <div class="actions">

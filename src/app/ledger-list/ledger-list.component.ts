@@ -22,7 +22,7 @@ export class LedgerListComponent implements OnInit {
   ledgers: LedgerModel[];
   dataSource: MatTableDataSource<LedgerModel>;
 
-  displayedColumns: string[] = ['sno', 'name', 'under', 'o_bal'];
+  displayedColumns: string[] = ['sno', 'name', 'under', 'o_bal', 'cr_dr'];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;

@@ -1,18 +1,19 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {CompanyModel} from "../../models/company.model";
-import {LedgerModel} from "../../models/ledger.model";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {CompanyComponent} from "../company/company.component";
-import {AccountsConstants} from "../../shared/accounts.constants";
-import {Ng4LoadingSpinnerService} from "ng4-loading-spinner";
-import {Router} from "@angular/router";
-import {CompanyService} from "../../shared/company.service";
-import {LedgerService} from "../../shared/ledger.service";
-import {GroupModel} from "../../models/group.model";
-import {MessageService} from "../../shared/message.service";
+import {CompanyModel} from '../../models/company.model';
+import {LedgerModel} from '../../models/ledger.model';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {CompanyComponent} from '../company/company.component';
+import {AccountsConstants} from '../../shared/accounts.constants';
+import {Ng4LoadingSpinnerService} from 'ng4-loading-spinner';
+import {Router} from '@angular/router';
+import {CompanyService} from '../../shared/company.service';
+import {LedgerService} from '../../shared/ledger.service';
+import {GroupModel} from '../../models/group.model';
+import {MessageService} from '../../shared/message.service';
 import { GroupService } from 'src/app/shared/group.service';
+import { AppComponent } from 'src/app/app.component';
 
 export interface Types {
   name: string;
@@ -51,7 +52,7 @@ export class LedgerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.ledger.name = 'Test ledger';
+    this.ledger.name = 'Ledger A/c';
     this.ledger.mailingName = '';
     this.ledger.mailingAddress = 'Bangalore';
 
@@ -64,14 +65,15 @@ export class LedgerComponent implements OnInit {
     );
     this.ledgerForm = this.fb.group({
       name: [this.ledger.name, {validators: [Validators.required]}],
-      mailingName : [this.ledger.mailingName, Validators.required],
-      mailingAddress : [this.ledger.mailingAddress, Validators.required],
-      openingBalance : [this.ledger.openingBalance, Validators.required],
-      under: [this.ledger.under]
+      mailingName : [this.ledger.mailingName],
+      mailingAddress : [this.ledger.mailingAddress],
+      openingBalance : [this.ledger.openingBalance],
+      under: [this.ledger.under, Validators.required],
+      crDr: [this.ledger.crDr]
     });
   }
 
-  onCreate(){
+  onCreate() {
     this.ledger.config = this.company.id;
     this.spinnerService.show();
     this.service.create(this.ledger).subscribe(

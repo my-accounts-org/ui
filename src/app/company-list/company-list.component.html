@@ -55,12 +55,17 @@
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef> </mat-header-cell>
       <mat-cell *matCellDef="let element">
+
         <button mat-icon-button>
-          <mat-icon matTooltip="Open Company" (click)="loadDashboard(element)">launch</mat-icon>
+          <mat-icon color="warn" matTooltip="Edit Company">edit</mat-icon>
         </button>
         <button mat-icon-button>
           <mat-icon color="warn" (click)="delete(element)" matTooltip="Delete Company">delete_outline</mat-icon>
         </button>
+        <button mat-icon-button>
+          <mat-icon matTooltip="Open Company" (click)="loadDashboard(element)">launch</mat-icon>
+        </button>
+
       </mat-cell>
     </ng-container>
 

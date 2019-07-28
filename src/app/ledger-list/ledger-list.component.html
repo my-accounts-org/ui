@@ -30,6 +30,12 @@
       <mat-cell *matCellDef="let element"> {{element.openingBalance}} </mat-cell>
     </ng-container>
 
+    <!-- Cr Dr Column -->
+    <ng-container matColumnDef="cr_dr">
+      <mat-header-cell *matHeaderCellDef> CR/DR </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.crDr}} </mat-cell>
+    </ng-container>
+
     <!-- Symbol Column -->
     <ng-container matColumnDef="loading">
       <mat-footer-cell *matFooterCellDef colspan="5">
