@@ -29,15 +29,15 @@
       </span>
     </div>
   </mat-toolbar>
-  <mat-drawer #drawer class="sidenav" #sidenav mode="over">
+  <mat-drawer #drawer class="sidenav" #sidenav mode="side">
     <mat-list>
       <mat-list-item>
         <mat-icon matListIcon>group</mat-icon>
-        <button mat-button (click)="navigateTo('group-list'); sidenav.toggle()">Groups</button>
+        <button mat-button (click)="navigateTo('group-list'); ">Groups</button>
       </mat-list-item>
       <mat-list-item>
         <mat-icon matListIcon>account_box</mat-icon>
-        <button mat-button (click)="navigateTo('ledger-list'); sidenav.toggle()">Ledgers</button>
+        <button mat-button (click)="navigateTo('ledger-list'); ">Ledgers</button>
       </mat-list-item>
       <mat-list-item>
         <mat-icon matListIcon>group</mat-icon>

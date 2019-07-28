@@ -11,6 +11,7 @@ import {AccountsConstants} from '../shared/accounts.constants';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { AppComponent } from '../app.component';
 import { MessageService } from '../shared/message.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-company-list',
@@ -34,6 +35,7 @@ export class CompanyListComponent implements OnInit {
     private accountsConstants: AccountsConstants,
     private snackBar: MatSnackBar,
     private app: AppComponent,
+    private router: Router,
     private messageService: MessageService
   ) {
   }
@@ -122,6 +124,11 @@ export class CompanyListComponent implements OnInit {
         }
       );
     }
+  }
+
+  loadDashboard(data: CompanyModel) {
+    localStorage.setItem('company', JSON.stringify(data));
+    this.router.navigate(['dashboard']);
   }
 
 }
