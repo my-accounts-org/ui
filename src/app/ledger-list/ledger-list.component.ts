@@ -67,7 +67,21 @@ export class LedgerListComponent implements OnInit {
 
   delete(ledger: LedgerModel) {
     if (ledger.under && ledger.name !== 'Cash') {
-
+        ledger.config = this.app.currentCompany.id;
+        this.service.delete(ledger).subscribe(
+          result => {
+            if (result) {
+              this.ledgers = this.ledgers.filter((value, index, arr) => {
+                return value.id !== ledger.id;
+              });
+              this.dataSource.data = this.ledgers;
+              this.messageService.showMessage(ledger.name + ' deleted successfully!');
+            }
+          },
+          error => {
+            this.messageService.showMessage(error.message);
+          }
+        );
     } else {
       this.messageService.showMessage('You cannot delete or modify system generated ledgers!');
     }

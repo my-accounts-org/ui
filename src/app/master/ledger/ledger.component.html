@@ -44,7 +44,7 @@
             matInput placeholder="Enter your postal address">
         </mat-form-field>
         <mat-form-field>
-          <mat-label>Opening Balance</mat-label>
+          <mat-label>Opening Balance as on {{company.financialYear | date: 'dd-MMM-yyyy'}}</mat-label>
           <input
             formControlName="openingBalance"
             [(ngModel)]="ledger.openingBalance"
