@@ -5,6 +5,7 @@ import {timeout} from 'rxjs/operators';
 import { GroupModel } from '../models/group.model';
 import {LedgerModel} from '../models/ledger.model';
 import { ServiceHelper } from '../models/service.helper';
+import { BooleanValue } from '../models/returntypes';
 
 @Injectable({
   providedIn: 'root'
@@ -26,5 +27,10 @@ export class LedgerService extends ServiceHelper {
   create(ledger: LedgerModel) {
     const headers = this.getHeaders();
     return this.http.put<LedgerModel>(this.ledgerURL, ledger, {headers}).pipe(timeout(2000));
+  }
+
+  delete(ledger: LedgerModel) {
+    const headers = this.getHeaders();
+    return this.http.delete<BooleanValue>(this.ledgerURL + '/' + ledger.config + '/' + ledger.id, {headers}).pipe(timeout(2000));
   }
 }

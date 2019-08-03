@@ -15,7 +15,7 @@ export class AuthService {
   }
 
   login(user: UserModel) {
-    return this.http.post<AuthorizedUserModel>(this.loginURL, user).pipe(timeout(3000));
+    return this.http.post<AuthorizedUserModel>(this.loginURL, user).pipe(timeout(10000));
   }
 
   isLoggedIn(): boolean {
