@@ -7,6 +7,7 @@ import { MessageService } from 'src/app/shared/message.service';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { CompanyComponent } from '../company/company.component';
 import { group } from '@angular/animations';
+import { GroupHelper } from 'src/app/utils/group.helper';
 
 
 export interface GroupNature {
@@ -19,7 +20,7 @@ export interface GroupNature {
   templateUrl: './group.component.html',
   styleUrls: ['./group.component.less']
 })
-export class GroupComponent implements OnInit {
+export class GroupComponent extends GroupHelper implements OnInit {
 
   group: GroupModel = new GroupModel();
   groups: GroupModel[];
@@ -37,8 +38,10 @@ export class GroupComponent implements OnInit {
     private messageService: MessageService,
     public dialogRef: MatDialogRef<CompanyComponent>
   ) {
+    super();
     this.group.under = -1;
   }
+
 
   ngOnInit() {
     this.company = JSON.parse(localStorage.getItem('company'));
@@ -61,22 +64,14 @@ export class GroupComponent implements OnInit {
   }
 
   onCreate() {
-    const selected = this.getSelectedGroup();
-    if(selected) {
+    const selected = this.findGroup(this.groups, this.group.under);
+    if (selected) {
       this.group.nature = selected.nature;
       this.group.grossAffected = selected.grossAffected;
     } else {
       console.log('Primary Group Selected');
     }
     this.createGroup();
-  }
-
-  getSelectedGroup(): GroupModel {
-    const that = this;
-    const selectedGroup: GroupModel[] = this.groups.filter((item) => {
-       return item.id === that.group.under;
-    });
-    return selectedGroup[0];
   }
 
   createGroup() {

@@ -14,6 +14,7 @@ import {GroupModel} from '../../models/group.model';
 import {MessageService} from '../../shared/message.service';
 import { GroupService } from 'src/app/shared/group.service';
 import { AppComponent } from 'src/app/app.component';
+import { GroupHelper } from 'src/app/utils/group.helper';
 
 export interface Types {
   name: string;
@@ -25,7 +26,7 @@ export interface Types {
   templateUrl: './ledger.component.html',
   styleUrls: ['./ledger.component.less']
 })
-export class LedgerComponent implements OnInit {
+export class LedgerComponent extends GroupHelper implements OnInit {
 
   ledger: LedgerModel = new LedgerModel();
   ledgerForm: FormGroup;
@@ -42,6 +43,7 @@ export class LedgerComponent implements OnInit {
     private accountsConstants: AccountsConstants,
     private snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any) {
+      super();
   }
 
   updateMailingName() {
@@ -74,6 +76,15 @@ export class LedgerComponent implements OnInit {
   }
 
   onCreate() {
+    this.createLedger();
+  }
+
+  setCrDr() {
+    const selected = this.findGroup(this.groups, this.ledger.under);
+    this.ledger.crDr = (selected && (+selected.nature === 3 || +selected.nature === 4)) ? 'Cr' : 'Dr';
+  }
+
+  createLedger() {
     this.ledger.config = this.company.id;
     this.spinnerService.show();
     this.service.create(this.ledger).subscribe(

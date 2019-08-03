@@ -26,8 +26,9 @@
         <mat-label>Under</mat-label>
         <mat-select
           formControlName="under"
-          [(ngModel)]="ledger.under">
-          <mat-option [value]="-1">Primary</mat-option>
+          [(ngModel)]="ledger.under"
+          (selectionChange)="setCrDr()"
+          >
           <mat-option *ngFor="let group of groups" [value]="group.id">
             {{group.name}}
           </mat-option>
