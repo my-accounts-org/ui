@@ -61,6 +61,25 @@ export class GroupComponent implements OnInit {
   }
 
   onCreate() {
+    const selected = this.getSelectedGroup();
+    if(selected) {
+      this.group.nature = selected.nature;
+      this.group.grossAffected = selected.grossAffected;
+    } else {
+      console.log('Primary Group Selected');
+    }
+    this.createGroup();
+  }
+
+  getSelectedGroup(): GroupModel {
+    const that = this;
+    const selectedGroup: GroupModel[] = this.groups.filter((item) => {
+       return item.id === that.group.under;
+    });
+    return selectedGroup[0];
+  }
+
+  createGroup() {
     this.group.config = this.company.id;
     this.service.create(this.group).subscribe(
       response => {
@@ -72,4 +91,5 @@ export class GroupComponent implements OnInit {
       }
     );
   }
+
 }

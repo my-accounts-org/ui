@@ -7,4 +7,5 @@ export class GroupModel {
   default: boolean;
   nameOfGroupUnder: string;
   config: number;
+  underGroup: GroupModel;
 }
