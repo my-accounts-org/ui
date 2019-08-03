@@ -11,6 +11,7 @@ import {LedgerService} from '../shared/ledger.service';
 import {CompanyComponent} from '../master/company/company.component';
 import {LedgerComponent} from '../master/ledger/ledger.component';
 import { AppComponent } from '../app.component';
+import { MessageService } from '../shared/message.service';
 
 @Component({
   selector: 'app-ledger-list',
@@ -22,7 +23,7 @@ export class LedgerListComponent implements OnInit {
   ledgers: LedgerModel[];
   dataSource: MatTableDataSource<LedgerModel>;
 
-  displayedColumns: string[] = ['sno', 'name', 'under', 'o_bal', 'cr_dr'];
+  displayedColumns: string[] = ['sno', 'name', 'under', 'o_bal', 'cr_dr', 'actions'];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -30,6 +31,7 @@ export class LedgerListComponent implements OnInit {
   constructor(private dialog: MatDialog,
               private service: LedgerService,
               private app: AppComponent,
+              private messageService: MessageService,
               private spinnerService: Ng4LoadingSpinnerService,
               private accountsConstants: AccountsConstants,
               private snackBar: MatSnackBar) {
@@ -61,5 +63,13 @@ export class LedgerListComponent implements OnInit {
         this.dataSource.data = this.ledgers;
       }
     });
+  }
+
+  delete(ledger: LedgerModel) {
+    if (ledger.under && ledger.name !== 'Cash') {
+
+    } else {
+      this.messageService.showMessage('You cannot delete or modify system generated ledgers!');
+    }
   }
 }

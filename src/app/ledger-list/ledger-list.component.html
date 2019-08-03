@@ -36,6 +36,19 @@
       <mat-cell *matCellDef="let element"> {{element.crDr}} </mat-cell>
     </ng-container>
 
+     <!-- Action Column -->
+     <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button mat-icon-button>
+          <mat-icon color="warn" matTooltip="Edit Ledger">edit</mat-icon>
+        </button>
+        <button mat-icon-button>
+          <mat-icon color="warn" matTooltip="Delete Ledger" (click)="delete(element)">delete_outline</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
     <!-- Symbol Column -->
     <ng-container matColumnDef="loading">
       <mat-footer-cell *matFooterCellDef colspan="5">
