@@ -32,15 +32,19 @@
   <mat-drawer #drawer class="sidenav" #sidenav mode="over">
     <mat-list>
       <mat-list-item>
-        <mat-icon matListIcon>group</mat-icon>
+        <mat-icon matListIcon>business</mat-icon>
+        <button mat-button (click)="navigateTo('company-list'); drawer.toggle() ">Company</button>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon matListIcon>account_box</mat-icon>
         <button mat-button (click)="navigateTo('group-list'); drawer.toggle() ">Groups</button>
       </mat-list-item>
       <mat-list-item>
-        <mat-icon matListIcon>account_box</mat-icon>
+        <mat-icon matListIcon>import_contacts</mat-icon>
         <button mat-button (click)="navigateTo('ledger-list'); drawer.toggle()">Ledgers</button>
       </mat-list-item>
       <mat-list-item>
-        <mat-icon matListIcon>account_box</mat-icon>
+        <mat-icon matListIcon>local_shipping</mat-icon>
         <button mat-button (click)="navigateTo('stock-group-list'); drawer.toggle()">Stock Group</button>
       </mat-list-item>
       <mat-list-item>
@@ -65,7 +69,7 @@
 
 <!-- Menu for Settings -->
 <mat-menu #settingsMenu>
-    <button mat-menu-item (click)="navigateTo('company-list')">Company Master</button>
+    <button mat-menu-item (click)="navigateTo('user-list')">Add User</button>
 </mat-menu>
 
 <ng4-loading-spinner> </ng4-loading-spinner>
