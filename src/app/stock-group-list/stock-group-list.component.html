@@ -1,0 +1,77 @@
+<div class="container">
+  <span class="bottom-right"><button color="primary" mat-mini-fab (click)='add()'>+</button></span>
+  <mat-toolbar color="primary">
+    <mat-card-header>Stock Group</mat-card-header>
+  </mat-toolbar>
+
+  <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+    <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="sno">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Sl. No. </mat-header-cell>
+      <mat-cell *matCellDef="let element; let i = index"> {{i + (paginator.pageIndex * paginator.pageSize) + 1}} </mat-cell>
+    </ng-container>
+
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="select">
+      <mat-header-cell *matHeaderCellDef class="action">
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" class="action">
+        <mat-checkbox (change)="$event ? selectRow(row) : null" [checked]="selection.isSelected(row)">
+        </mat-checkbox>
+
+      </mat-cell>
+    </ng-container>
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="under">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Group Under </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{(element.nameOfStockGroupUnder) || "Primary"}} </mat-cell>
+    </ng-container>
+
+    <!-- Action Column -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button mat-icon-button>
+          <mat-icon color="warn" matTooltip="Edit Company">edit</mat-icon>
+        </button>
+        <button mat-icon-button>
+          <mat-icon color="warn" matTooltip="Delete Group" (click)="delete(element)">delete_outline</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="loading">
+      <mat-footer-cell *matFooterCellDef colspan="5">
+        Loading data...
+      </mat-footer-cell>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="nodata">
+      <mat-footer-cell *matFooterCellDef colspan="5">
+        No Data
+      </mat-footer-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+    <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide': dataSource != null}"></mat-footer-row>
+    <mat-footer-row *matFooterRowDef="['nodata']"
+      [ngClass]="{'hide': dataSource != null && dataSource.data.length > 0}"></mat-footer-row>
+  </mat-table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 50, 100]" showFirstLastButtons></mat-paginator>
+
+</div>

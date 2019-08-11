@@ -36,7 +36,7 @@ export class GroupComponent extends GroupHelper implements OnInit {
     private fb: FormBuilder,
     private service: GroupService,
     private messageService: MessageService,
-    public dialogRef: MatDialogRef<CompanyComponent>
+    public dialogRef: MatDialogRef<GroupComponent>
   ) {
     super();
     this.group.under = -1;

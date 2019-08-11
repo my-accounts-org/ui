@@ -2,6 +2,8 @@ import { HttpHeaders } from '@angular/common/http';
 
 export class ServiceHelper {
 
+  seconds = 1000;
+
   constructor() {}
 
   getHeaders() {

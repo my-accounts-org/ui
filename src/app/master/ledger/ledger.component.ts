@@ -7,7 +7,6 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {CompanyComponent} from '../company/company.component';
 import {AccountsConstants} from '../../shared/accounts.constants';
 import {Ng4LoadingSpinnerService} from 'ng4-loading-spinner';
-import {Router} from '@angular/router';
 import {CompanyService} from '../../shared/company.service';
 import {LedgerService} from '../../shared/ledger.service';
 import {GroupModel} from '../../models/group.model';

@@ -42,13 +42,6 @@ export class AppComponent {
     this.router.navigate([module]);
   }
 
-  onCreate() {
-    const config: MatDialogConfig = new MatDialogConfig();
-    config.autoFocus = true;
-    config.width = '900px';
-    this.dialog.open(CompanyComponent, config);
-  }
-
   setAppTitle() {
     if (localStorage.getItem('company') !== undefined && localStorage.getItem('company') !== 'undefined') {
       this.currentCompany = JSON.parse(localStorage.getItem('company'));

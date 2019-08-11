@@ -1,4 +1,6 @@
-class export StockItemModel {
+import {UnitModel} from './unit.model';
+
+export class StockItemModel {
   id: number;
   config: number;
   name: string;
