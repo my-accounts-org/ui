@@ -3,10 +3,10 @@ import { StockGroupModel } from 'src/app/models/stockgroup.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CompanyModel } from 'src/app/models/company.model';
 import { StockGroupService } from 'src/app/shared/stock-group.service';
-import { AppComponent } from 'src/app/app.component';
-import { GroupHelper } from 'src/app/utils/group.helper';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import { MatDialogRef} from '@angular/material';
 import { MessageService } from 'src/app/shared/message.service';
+import { GroupHelper } from 'src/app/utils/group.helper';
+
 
 @Component({
   selector: 'app-stock-group',

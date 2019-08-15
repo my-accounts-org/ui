@@ -8,6 +8,7 @@ import {CompanyListComponent} from './company-list/company-list.component';
 import { GroupListComponent } from './group-list/group-list.component';
 import {LedgerListComponent} from './ledger-list/ledger-list.component';
 import {StockGroupListComponent} from './stock-group-list/stock-group-list.component'
+import { StockItemListComponent } from './stock-item-list/stock-item-list.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path: 'ledger-list', component: LedgerListComponent, canActivate: [AuthGuard]},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
   {path: 'stock-group-list', component: StockGroupListComponent, canActivate: [AuthGuard]},
+  {path: 'stock-item-list', component: StockItemListComponent, canActivate: [AuthGuard]},
   {path: '', redirectTo: '/home', pathMatch: 'full'}
 ];
 

@@ -1,0 +1,47 @@
+<mat-toolbar color="primary">
+  <span>Create Item</span>
+  <span class="example-fill-remaining-space"></span>
+  <button mat-mini-fab mat-dialog-close><mat-icon>close</mat-icon></button>
+</mat-toolbar>
+<form [formGroup]="stockItemForm" (submit)="stockItemForm.valid && onCreate()" noval>
+  <div class="form">
+    <div class="stock-group-info">
+      <!-- Group Name -->
+      <mat-form-field>
+            <mat-label>Stock Item Name</mat-label>
+            <input
+              formControlName="name"
+              [(ngModel)]="stockItem.name"
+              matInput placeholder="Enter item name">
+        </mat-form-field>
+
+        <!-- Group Under -->
+        <mat-form-field>
+          <mat-label>Under</mat-label>
+            <mat-select [(ngModel)]="stockItem.under" formControlName="under">
+                <mat-option [value]="0">Primary</mat-option>
+                <mat-option *ngFor="let group of stockGroups" [value]="group.id">
+                  {{group.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <!-- Group Under -->
+        <mat-form-field>
+          <mat-label>Unit</mat-label>
+            <mat-select [(ngModel)]="stockItem.unit" formControlName="unit">
+                <mat-option *ngFor="let group of stockGroups" [value]="group.id">
+                  {{group.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+      <div class="actions">
+          <mat-card-actions>
+              <button mat-raised-button [disabled]="!stockItemForm.valid">Create</button>
+          </mat-card-actions>
+      </div>
+    </div>
+
+  </div>
+</form>

@@ -33,7 +33,7 @@
     <mat-list>
       <mat-list-item>
         <mat-icon matListIcon>business</mat-icon>
-        <button mat-button (click)="navigateTo('company-list'); drawer.toggle() ">Company</button>
+        <button mat-button (click)="navigateTo('company-list'); drawer.toggle() ">Company Master</button>
       </mat-list-item>
       <mat-list-item>
         <mat-icon matListIcon>account_box</mat-icon>
@@ -45,8 +45,14 @@
       </mat-list-item>
       <mat-list-item>
         <mat-icon matListIcon>local_shipping</mat-icon>
-        <button mat-button (click)="navigateTo('stock-group-list'); drawer.toggle()">Stock Group</button>
+        <button mat-button (click)="navigateTo('stock-group-list'); drawer.toggle()">Stock Groups</button>
       </mat-list-item>
+      <mat-list-item>
+        <mat-icon matListIcon>local_shipping</mat-icon>
+        <button mat-button (click)="navigateTo('stock-item-list'); drawer.toggle()">Stock Items</button>
+      </mat-list-item>
+
+
       <mat-list-item>
         <mat-icon matListIcon>group</mat-icon>
         Vouchers
