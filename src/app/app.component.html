@@ -45,6 +45,10 @@
       </mat-list-item>
       <mat-list-item>
         <mat-icon matListIcon>local_shipping</mat-icon>
+        <button mat-button (click)="navigateTo('unit-list'); drawer.toggle()">Units</button>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon matListIcon>local_shipping</mat-icon>
         <button mat-button (click)="navigateTo('stock-group-list'); drawer.toggle()">Stock Groups</button>
       </mat-list-item>
       <mat-list-item>

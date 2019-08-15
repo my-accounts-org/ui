@@ -21,6 +21,8 @@ import { StockGroupListComponent } from './stock-group-list/stock-group-list.com
 import { StockGroupComponent } from './master/stock-group/stock-group.component';
 import { StockItemListComponent } from './stock-item-list/stock-item-list.component';
 import { StockItemComponent } from './master/stock-item/stock-item.component';
+import { UnitListComponent } from './unit-list/unit-list.component';
+import { UnitComponent } from './master/unit/unit.component';
 
 
 @NgModule({
@@ -38,7 +40,9 @@ import { StockItemComponent } from './master/stock-item/stock-item.component';
     StockGroupListComponent,
     StockGroupComponent,
     StockItemListComponent,
-    StockItemComponent
+    StockItemComponent,
+    UnitListComponent,
+    UnitComponent
   ],
   imports: [
     BrowserModule,
@@ -51,6 +55,13 @@ import { StockItemComponent } from './master/stock-item/stock-item.component';
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent],
-  entryComponents: [CompanyComponent, GroupComponent, LedgerComponent, StockGroupComponent, StockItemComponent]
+  entryComponents: [
+    CompanyComponent,
+    GroupComponent,
+    LedgerComponent,
+    StockGroupComponent,
+    StockItemComponent,
+    UnitComponent
+  ]
 })
 export class AppModule { }

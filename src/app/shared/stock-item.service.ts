@@ -7,9 +7,9 @@ import { ServiceHelper } from '../models/service.helper';
 @Injectable({
   providedIn: 'root'
 })
-export class StockItemService  extends ServiceHelper{
+export class StockItemService extends ServiceHelper{
 
-  private stockItemURL = '/ac/api/stockitems';
+  private serviceURL = '/ac/api/stockitems';
 
   constructor(private http: HttpClient) {
     super();
@@ -17,6 +17,6 @@ export class StockItemService  extends ServiceHelper{
 
   getAllStockItems(companyId: number) {
     const headers = this.getHeaders();
-    return this.http.get<StockItemModel[]>(this.stockItemURL + '/' + companyId, {headers}).pipe(timeout(10000));
+    return this.http.get<StockItemModel[]>(this.serviceURL + '/' + companyId, {headers}).pipe(timeout(10000));
   }
 }
