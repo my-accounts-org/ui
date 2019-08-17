@@ -17,7 +17,12 @@ export class UnitService extends ServiceHelper{
 
   getAllUnits(companyId: number) {
     const headers = this.getHeaders();
-    return this.http.get<UnitModel[]>(this.serviceURL + '/' + companyId, {headers}).pipe(timeout(10000));
+    return this.http.get<UnitModel[]>(this.serviceURL + '/' + companyId, {headers}).pipe(timeout(1000 * this.seconds));
+  }
+
+  create(unit: UnitModel) {
+    const headers = this.getHeaders();
+    return this.http.put<UnitModel>(this.serviceURL, unit, {headers}).pipe(timeout(1000 * this.seconds));
   }
 
 }

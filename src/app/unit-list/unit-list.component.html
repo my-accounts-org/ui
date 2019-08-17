@@ -26,15 +26,15 @@
     </ng-container>
 
     <!-- Position Column -->
-    <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+
+    <ng-container matColumnDef="type">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Type </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.type == 0? 'Simple': 'Compound'}} </mat-cell>
     </ng-container>
 
-    <!-- Name Column -->
-    <ng-container matColumnDef="under">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Group Under </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{(element.nameOfStockGroupUnder) || "Primary"}} </mat-cell>
+    <ng-container matColumnDef="symbol">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Symbol (name) </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.type == 0? element.symbol + ' (' + element.name + ') ' : element.firstUnit.symbol + ' of ' + element.conversion + ' ' + element.secondUnit.symbol}} </mat-cell>
     </ng-container>
 
     <!-- Action Column -->

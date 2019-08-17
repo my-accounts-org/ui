@@ -1,48 +1,74 @@
 <mat-toolbar color="primary">
-  <span>Create Item</span>
+  <span>Create Measurement Unit</span>
   <span class="example-fill-remaining-space"></span>
-  <button mat-mini-fab mat-dialog-close><mat-icon>close</mat-icon></button>
+  <button mat-mini-fab mat-dialog-close>
+    <mat-icon>close</mat-icon>
+  </button>
 </mat-toolbar>
 <form [formGroup]="unitForm" (submit)="unitForm.valid && onCreate()" noval>
   <div class="form">
     <div class="stock-group-info">
       <!-- Type -->
       <mat-form-field>
-            <mat-label>Unit Type</mat-label>
-            <input
-              formControlName="name"
-              [(ngModel)]="unit.name"
-              matInput placeholder="Enter item name">
-        </mat-form-field>
-        <!-- Name -->
-        <mat-form-field>
-          <mat-label>Unit Name</mat-label>
-          <input
-            formControlName="name"
-            [(ngModel)]="unit.name"
-            matInput placeholder="Enter item name">
-        </mat-form-field>
-        <!-- Symbol -->
-        <mat-form-field>
-          <mat-label>Symbol</mat-label>
-          <input
-            formControlName="name"
-            [(ngModel)]="unit.name"
-            matInput placeholder="Enter item name">
-        </mat-form-field>
-        <!-- First Unit -->
-        <mat-form-field>
-          <mat-label>First Unit</mat-label>
-          <input
-            formControlName="name"
-            [(ngModel)]="unit.name"
-            matInput placeholder="Enter item name">
-        </mat-form-field>
+        <mat-label>Type</mat-label>
+        <mat-select [(ngModel)]="unit.type" formControlName="type">
+          <mat-option [value]="0">Simple</mat-option>
+          <mat-option [value]="1">Compound</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <!-- Name -->
+      <mat-form-field *ngIf="unit.type == 0">
+        <mat-label>Unit Name</mat-label>
+        <input formControlName="name" [(ngModel)]="unit.name" matInput placeholder="Enter unit name">
+      </mat-form-field>
+      <!-- Symbol -->
+      <mat-form-field *ngIf="unit.type == 0">
+        <mat-label>Symbol</mat-label>
+        <input formControlName="symbol" [(ngModel)]="unit.symbol" matInput placeholder="Enter symbol">
+      </mat-form-field>
+      <mat-form-field *ngIf="unit.type == 0">
+        <mat-label>Decimal Places</mat-label>
+        <input formControlName="decimalPlaces" [(ngModel)]="unit.decimalPlaces" matInput
+          placeholder="Enter decimal places">
+      </mat-form-field>
+
+      <mat-grid-list cols="3" rowHeight="100px" *ngIf="unit.type == 1">
+        <mat-grid-tile>
+          <!-- First Unit -->
+          <mat-form-field>
+            <mat-label>First Unit</mat-label>
+            <mat-select [(ngModel)]="unit.firstUnit" formControlName="firstUnit">
+                <mat-option *ngFor="let unit of units" [value]="unit">
+                    {{unit.symbol}}
+                  </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field>
+            <mat-label>Conversion</mat-label>
+            <input formControlName="conversion" [(ngModel)]="unit.conversion" matInput
+              placeholder="Enter conversion number">
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <!-- Second Unit -->
+          <mat-form-field>
+            <mat-label>Second Unit</mat-label>
+            <mat-select [(ngModel)]="unit.secondUnit" formControlName="secondUnit">
+                <mat-option *ngFor="let unit of units" [value]="unit">
+                    {{unit.symbol}}
+                  </mat-option>
+              </mat-select>
+          </mat-form-field>
+        </mat-grid-tile>
+      </mat-grid-list>
+
 
       <div class="actions">
-          <mat-card-actions>
-              <button mat-raised-button [disabled]="!unit.valid">Create</button>
-          </mat-card-actions>
+        <mat-card-actions>
+          <button mat-raised-button [disabled]="!unitForm.valid">Create</button>
+        </mat-card-actions>
       </div>
     </div>
 

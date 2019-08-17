@@ -20,7 +20,7 @@ export class UnitListComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  displayedColumns: string[] = ['sno', 'name', 'under', 'actions'];
+  displayedColumns: string[] = ['sno', 'type', 'symbol', 'actions'];
 
   selection: SelectionModel<UnitModel>;
 
@@ -57,7 +57,7 @@ export class UnitListComponent implements OnInit {
   add() {
     const config: MatDialogConfig = new MatDialogConfig();
     config.autoFocus = true;
-    config.width = '350px';
+    config.minWidth = '350px';
     const dialogRef = this.dialog.open(UnitComponent, config);
 
     dialogRef.afterClosed().subscribe((unit: UnitModel) => {
